@@ -1,0 +1,3 @@
+Package: iceweasel
+Pin: release a=wheezy-backports
+Pin-Priority: 700

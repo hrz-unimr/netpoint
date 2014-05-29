@@ -1,0 +1,16 @@
+#!/bin/sh
+
+set -e
+
+lb config noauto \
+        --architecture "i386" \
+        --linux-flavours "686-pae" \
+        --distribution "wheezy" \
+        --binary-images "iso-hybrid" \
+        --memtest "none" \
+        --apt-recommends "false" \
+        --apt-indices "false" \
+        --archive-areas "main contrib non-free" \
+        --bootappend-live "console=ttyS0 loglevel=3 boot=live config hostname=sebian username=sebianuser locale=de_DE.UTF-8 keyboard-layouts=de" \
+        "${@}"
+

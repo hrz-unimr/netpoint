@@ -1,0 +1,8 @@
+tftpboot
+netboot
+local
+chroot*
+cache
+*.log
+binary*
+.build
