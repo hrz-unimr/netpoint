@@ -1,8 +1,8 @@
-sebian
-======
+netpoint
+========
 
 ## Introduction ##
-* The object of sebian is the creation of a customizable webkiosk system based on Debian-Live and Safe-Exam-Browser.
+* The object of netpoint is the creation of a customizable webkiosk system based on Debian-Live and Firefox.
 
 ## Requirements ##
 * Debian Linux (Wheezy recommended)
@@ -21,8 +21,8 @@ apt-get install git
 
 ```bash
 cd ~
-git clone https://github.com/eqsoft/sebian
-cd sebian
+git clone https://github.com/eqsoft/netpoint
+cd netpoint
 ```
 
 * edit basic config files
@@ -33,11 +33,7 @@ config/package-lists/*.chroot
 ```
 edit openbox configs (permitted keys, mouse and menu)
 ```bash
-config/includes.chroot/etc/skel/.config/openbox/*
-```
-edit seb config (permitted keys, mouse and menu)
-```bash
-config/includes.chroot/opt/seb/apps/chrome/defaults/seb/config.default.json
+config/includes.chroot/etc/xdg/openbox/*
 ```
 edit live config (see examples config.iso, config.net)
 ```bash
@@ -52,4 +48,3 @@ create image
 ## Documentation ##
 * Debian-Live: http://live.debian.net/manual/stable/html/live-manual.en.html
 * Openbox: http://openbox.org/wiki/Help:Contents
-* seb: https://github.com/eqsoft/seb/blob/master/doc.md
