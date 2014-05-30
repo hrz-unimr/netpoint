@@ -1,6 +1,6 @@
 tftpboot
 netboot
-local
+./local
 chroot*
 cache
 *.log
