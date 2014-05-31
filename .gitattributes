@@ -1,0 +1,3 @@
+README.md merge=ours
+config/hooks/kiosk.chroot merge=ours
+config/includes.chroot/usr/local/bin/start_browser merge=ours

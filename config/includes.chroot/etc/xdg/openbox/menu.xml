@@ -7,7 +7,7 @@
 
 <menu id="root-menu" label="Openbox 3">
   <item label="Web browser">
-    <action name="Execute"><execute>start_iceweasel</execute></action>
+    <action name="Execute"><execute>start_browser</execute></action>
   </item>
   <!-- This requires the presence of the 'menu' package to work -->
   <item label="Restart">
