@@ -6,3 +6,4 @@ cache
 *.log
 binary*
 .build
+deploy_net.sh

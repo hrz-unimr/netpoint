@@ -1,3 +1,3 @@
 start_feh &
-lxpanel &
+xfce4-panel &
 start_browser &

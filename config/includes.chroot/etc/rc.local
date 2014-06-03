@@ -11,6 +11,6 @@
 #
 # By default this script does nothing.
 
-su sebianuser -c startx
+su npuser -c startx
 
 exit 0
