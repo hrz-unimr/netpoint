@@ -1,1 +1,1 @@
-xorg openbox xfce4-panel feh ntpdate iptables subversion git
+sudo openssh-server xorg xscreensaver openbox xfce4-panel feh ntpdate iptables subversion
