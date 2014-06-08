@@ -9,8 +9,8 @@
 
 set -e
 
-echo $HOSTANME > /etc/hostname
-/etc/init.d/hostname.sh
+#echo $HOSTANME > /etc/hostname
+#/etc/init.d/hostname.sh
 
 # fetch seb repo
  cd /opt/seb
