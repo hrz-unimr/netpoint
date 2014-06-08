@@ -1,0 +1,16 @@
+#!/bin/bash
+WALLPATH="/usr/share/wallpapers"
+DEFAULT="1024x768"
+RES=`xrandr -q | awk -F'current' -F',' 'NR==1 {gsub("( |current)","");print $2}'`
+IMAGE="${WALLPATH}/default_${RES}.jpg"
+DEFAULT_IMAGE="${WALLPATH}/default_${DEFAULT}.jpg"
+
+echo "found resolution: $RES"
+
+if [ ! -f "$IMAGE" ] ; then
+	echo "no image found $IMAGE use $DEFAULT_IMAGE"
+fi
+
+feh --bg-scale $IMAGE
+
+

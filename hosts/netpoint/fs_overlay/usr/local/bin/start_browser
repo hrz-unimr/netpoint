@@ -1,0 +1,11 @@
+#!/bin/bash
+CMDLINE=`cat /proc/cmdline`
+for x in $CMDLINE; do
+    [[ $x = browser=* ]] || continue
+   ADD=`printf '%b\n' "${x#browser=}"`
+   #echo $ADD
+done
+
+while [ ! $(pidof iceweasel) ] ; do
+	iceweasel $ADD
+done
