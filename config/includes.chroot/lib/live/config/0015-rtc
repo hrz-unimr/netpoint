@@ -7,6 +7,12 @@
 ## This is free software, and you are welcome to redistribute it
 ## under certain conditions; see COPYING for details.
 
+set -e
+
+# just a hack for my virtual network
+# dhclient eth1
+# sleep 5
+
 DEFAULT_HOST="netpoint"
 
 # fake HOSTNAME

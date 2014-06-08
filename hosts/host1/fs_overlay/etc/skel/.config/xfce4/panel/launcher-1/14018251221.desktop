@@ -1,8 +1,8 @@
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
-Name=Flash
-Name[de]=Flash
+Name=Bash
+Name[de]=Bash
 Exec=/bin/sh --login
 Terminal=true
 Categories=X-Debian-Applications-Shells;
