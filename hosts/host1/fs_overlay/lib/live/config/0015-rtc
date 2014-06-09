@@ -1,0 +1,71 @@
+#!/bin/sh
+
+## live-config(7) - System Configuration Scripts
+## Copyright (C) 2006-2013 Daniel Baumann <daniel@debian.org>
+##
+## This program comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+## This is free software, and you are welcome to redistribute it
+## under certain conditions; see COPYING for details.
+
+set -e
+
+# just a hack for my virtual network
+# dhclient eth1
+# sleep 5
+
+DEFAULT_HOST="netpoint"
+
+# fake HOSTNAME
+# HOSTNAME="host2"
+
+Rtc ()
+{
+	# Reading kernel command line
+	for _PARAMETER in ${_CMDLINE}
+	do
+		case "${_PARAMETER}" in
+			live-config.rtc=*|rtc=*)
+				LIVE_RTC="${_PARAMETER#*rtc=}"
+				;;
+		esac
+	done
+	# fake RTC url
+	# LIVE_RTC="https://github.com/eqsoft/netpoint/trunk/hosts"
+	
+	echo "rtc=${LIVE_RTC}"
+	if [ -z "${LIVE_RTC}" ]
+	then
+		echo "no live runtime config set"
+		return
+	fi 
+	Configure_rtc
+}
+
+Configure_rtc ()
+{
+	echo "Configure_rtc"
+	OVERLAY="${LIVE_RTC}/$HOSTNAME/fs_overlay"
+	echo $HOSTNAME
+	svn ls "${OVERLAY}" --depth empty
+	EXISTS=$?
+	# host rtc exits?
+	if [ $EXISTS -ne 0 ]
+	then
+		echo "${OVERLAY} does not exit, trying default host ${DEFAULT_HOST}"
+		OVERLAY="${LIVE_RTC}/$DEFAULT_HOST/fs_overlay"
+		svn ls "${OVERLAY}" --depth empty
+		EXISTS=$?
+		# default host rtc exits?
+		if [ $EXISTS -ne 0 ]
+		then
+			echo "default ${OVERLAY} also does not exit, ignoring live config command."
+			return
+		fi
+	fi
+	echo "try to get rtc..."
+	cd /tmp
+	svn export -q "${OVERLAY}"
+	cp -a fs_overlay/* /
+}
+
+Rtc

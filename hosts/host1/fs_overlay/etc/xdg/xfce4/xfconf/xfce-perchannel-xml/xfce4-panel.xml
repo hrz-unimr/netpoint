@@ -19,7 +19,8 @@
   <property name="plugins" type="empty">
     <property name="plugin-1" type="string" value="launcher">
       <property name="items" type="array">
-        <value type="string" value="14018251221.desktop"/>
+        <value type="string" value="exit.desktop"/>
+        <value type="string" value="xterm.desktop"/>
       </property>
     </property>
     <property name="plugin-2" type="string" value="separator"/>

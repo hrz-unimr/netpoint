@@ -21,7 +21,7 @@ lockPref("browser.shell.checkDefaultBrowser", false);
 // Custom Netpoint
 
 // Start Address
-lockPref("browser.startup.homepage","http://www.heise.de");
+lockPref("browser.startup.homepage","http://github.com/eqsoft/netpoint/");
 // Don't hide url bar
 lockPref("browser.fullscreen.autohide",false);
 // Always start in private Modus

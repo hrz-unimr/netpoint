@@ -7,3 +7,4 @@ cache
 binary*
 .build
 deploy_net.sh
+filesystem.dir*

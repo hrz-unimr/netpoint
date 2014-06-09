@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=Exit
+Name[de]=Abmelden
+Name[en]=Logout
+Comment[de]=Das Kiosk-System wird ohne Neustart in einer neuen Session gestartet. Alle Daten im Nutzerprofil werden gelöscht.  
+Comment[en]=Exits the browser environment and restarts a clean kiosk without reboot. The user profile data will be deleted. 
+Exec=sudo /usr/local/bin/exit_browser
+Terminal=false
+Encoding=UTF-8
+Icon=/usr/share/images/exit.png
+Categories=System;
+X-Desktop-File-Install-Version=0.20

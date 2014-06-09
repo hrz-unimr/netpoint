@@ -14,10 +14,7 @@
 # brings dhclient up
 dhclient -nw
 
-# define hosts 
-# echo "127.0.0.1 localhost ${HOSTNAME}" > /etc/hosts
-
-# start x
-su npuser -c startx
-
-exit 0
+# start x in a loop
+while [ ! $(pidof X) ] ; do
+	su npuser -c startx
+done
