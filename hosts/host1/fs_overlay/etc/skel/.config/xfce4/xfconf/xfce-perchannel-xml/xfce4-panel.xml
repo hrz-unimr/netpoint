@@ -4,7 +4,7 @@
   <property name="panels" type="uint" value="1">
     <property name="panel-0" type="empty">
       <property name="position" type="string" value="p=8;x=683;y=648"/>
-      <property name="position-locked" type="bool" value="false"/>
+      <property name="position-locked" type="bool" value="true"/>
       <property name="background-style" type="uint" value="0"/>
       <property name="size" type="uint" value="30"/>
       <property name="length" type="uint" value="100"/>

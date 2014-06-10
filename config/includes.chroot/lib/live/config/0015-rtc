@@ -10,13 +10,14 @@
 set -e
 
 # just a hack for my virtual network
-# dhclient eth1
-# sleep 5
+if [ "$HOSTNAME" = "host1" ]
+then
+	echo "eth1 detected"
+	dhclient eth1
+	sleep 5
+fi
 
 DEFAULT_HOST="netpoint"
-
-# fake HOSTNAME
-# HOSTNAME="host2"
 
 Rtc ()
 {
@@ -29,8 +30,6 @@ Rtc ()
 				;;
 		esac
 	done
-	# fake RTC url
-	# LIVE_RTC="https://github.com/eqsoft/netpoint/trunk/hosts"
 	
 	echo "rtc=${LIVE_RTC}"
 	if [ -z "${LIVE_RTC}" ]
