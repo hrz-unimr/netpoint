@@ -1,0 +1,5 @@
+#!/bin/bash
+
+while [ ! $(pidof tint2) ] ; do
+	tint2
+done

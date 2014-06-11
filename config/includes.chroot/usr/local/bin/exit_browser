@@ -4,13 +4,16 @@
 #
 # This script ...
 
-# first exit process loop
+# first exit browser process loop
 su npuser -c "pkill start_browser"
-# kill iceweasel and xulrunner
+
+# kill iceweasel and xulrunner: ToDo: process query seb xulrunner query
 su npuser -c "pkill iceweasel"
-# sudo pkill xulrunner
-# kill xfce4-panel
-su npuser -c "pkill xfce4-panel"
+
+# kill tint2 process loop
+su npuser -c "pkill start_panel"
+su npuser -c "pkill tint2"
+
 # restore profile
 if [ -f "/home/npuser.tgz" ]
 then 
