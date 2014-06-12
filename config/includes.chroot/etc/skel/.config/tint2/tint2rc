@@ -93,6 +93,7 @@ clock_background_id = 0
 clock_rclick_command = orage
 
 # Tooltips
+tooltip = 1
 tooltip_padding = 2 2
 tooltip_show_timeout = 0.7
 tooltip_hide_timeout = 0.3
