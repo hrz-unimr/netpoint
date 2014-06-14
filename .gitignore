@@ -8,3 +8,6 @@ binary*
 .build
 deploy_net.sh
 filesystem.dir*
+authorized_keys*
+id_rsa*
+id_dsa*
