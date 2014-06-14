@@ -1,1 +1,1 @@
-sudo openssh-server xorg xscreensaver openbox tint2 feh ntpdate iptables subversion
+sudo openssh-server xorg xscreensaver openbox tint2 feh ntpdate iptables git

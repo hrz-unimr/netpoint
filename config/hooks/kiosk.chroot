@@ -13,12 +13,17 @@ set -e
 #/etc/init.d/hostname.sh
 
 # fetch seb repo
- cd /opt/seb
- svn export -q  https://github.com/eqsoft/seb/trunk/browser/apps
- #git clone https://github.com/eqsoft/seb sebrepo
- #cp -r sebrepo/browser/apps seb/
- ln -s /usr/lib/iceweasel/xulrunner /opt/seb/xulrunner
- #rm -rf sebrepo
+
+cd /opt/seb
+wget --no-check-certificate -qO- https://github.com/eqsoft/seb/tarball/master | tar xz
+mv eqsoft-seb-*/browser/apps  /opt/seb
+rm -r eqsoft-seb-*
+
+# svn export -q https://github.com/eqsoft/seb/trunk/browser/apps
+# git clone https://github.com/eqsoft/seb sebrepo
+# cp -r sebrepo/browser/apps seb/
+# ln -s /usr/lib/iceweasel/xulrunner /opt/seb/xulrunner
+# rm -rf sebrepo
 
 # Removing locales
 find /usr/share/locale -maxdepth 1 -mindepth 1 -type d ! -iname 'de' -exec rm -rf '{}' \;

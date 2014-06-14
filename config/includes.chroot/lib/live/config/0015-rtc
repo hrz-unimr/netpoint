@@ -9,15 +9,26 @@
 
 set -e
 
-# just a hack for my virtual network
-if [ "$HOSTNAME" = "host1" ]
+# just a hack for my virtual network nat device
+# ToDo: request multiple network devices
+if [ "$HOSTNAME" = "host18457464" ]
 then
 	echo "eth1 detected"
 	dhclient eth1
 	sleep 5
 fi
 
-DEFAULT_HOST="netpoint"
+RTC_REPO=""
+RTC_GRP=""
+RTC_HOST=""
+RTC_SSH=0
+
+# fake env: 
+#HOSTNAME="host18457464"
+#RTC_REPO="git@github.com/eqsoft/nprtc"
+#RTC_GRP="netpoint"
+#RTC_HOST="host18457464"
+#RTC_SSH=1
 
 Rtc ()
 {
@@ -25,46 +36,54 @@ Rtc ()
 	for _PARAMETER in ${_CMDLINE}
 	do
 		case "${_PARAMETER}" in
-			live-config.rtc=*|rtc=*)
-				LIVE_RTC="${_PARAMETER#*rtc=}"
+			live-config.rtcrepo=*|rtcrepo=*)
+				RTC_REPO="${_PARAMETER#*rtcrepo=}"
+				;;
+			live-config.rtcgrp=*|rtcgrp=*)
+				RTC_GRP="${_PARAMETER#*rtcgrp=}"
+				;;
+			live-config.rtchost|rtchost)
+				RTC_HOST="${HOSTNAME}"
+				;;
+			live-config.rtcssh|rtcssh)
+				RTC_SSH=1
 				;;
 		esac
-	done
-	
-	echo "rtc=${LIVE_RTC}"
-	if [ -z "${LIVE_RTC}" ]
-	then
-		echo "no live runtime config set"
-		return
-	fi 
+	done 
 	Configure_rtc
 }
 
 Configure_rtc ()
 {
 	echo "Configure_rtc"
-	OVERLAY="${LIVE_RTC}/$HOSTNAME/fs_overlay"
-	echo $HOSTNAME
-	svn ls "${OVERLAY}" --depth empty
-	EXISTS=$?
-	# host rtc exits?
-	if [ $EXISTS -ne 0 ]
-	then
-		echo "${OVERLAY} does not exit, trying default host ${DEFAULT_HOST}"
-		OVERLAY="${LIVE_RTC}/$DEFAULT_HOST/fs_overlay"
-		svn ls "${OVERLAY}" --depth empty
-		EXISTS=$?
-		# default host rtc exits?
-		if [ $EXISTS -ne 0 ]
-		then
-			echo "default ${OVERLAY} also does not exit, ignoring live config command."
-			return
-		fi
-	fi
-	echo "try to get rtc..."
-	cd /tmp
-	svn export -q "${OVERLAY}"
-	cp -a fs_overlay/* /
+	echo "hostname: ${HOSTNAME}"
+	echo "rtcrepo: ${RTC_REPO}"
+	echo "rtcgrp: ${RTC_GRP}"
+	echo "rtchost: ${RTC_HOST}"
+	echo "rtcssh: ${RTC_SSH}"
+	
+#	OVERLAY="${LIVE_RTC}/$HOSTNAME/fs_overlay"
+#	echo $HOSTNAME
+#	svn ls "${OVERLAY}" --depth empty
+#	EXISTS=$?
+#	# host rtc exits?
+#	if [ $EXISTS -ne 0 ]
+#	then
+#		echo "${OVERLAY} does not exit, trying default host ${DEFAULT_HOST}"
+#		OVERLAY="${LIVE_RTC}/$DEFAULT_HOST/fs_overlay"
+#		svn ls "${OVERLAY}" --depth empty
+#		EXISTS=$?
+#		# default host rtc exits?
+#		if [ $EXISTS -ne 0 ]
+#		then
+#			echo "default ${OVERLAY} also does not exit, ignoring live config command."
+#			return
+#		fi
+#	fi
+#	echo "try to get rtc..."
+#	cd /tmp
+#	svn export -q "${OVERLAY}"
+#	cp -a fs_overlay/* /
 }
 
 Rtc
