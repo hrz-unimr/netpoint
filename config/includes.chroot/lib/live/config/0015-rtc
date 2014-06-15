@@ -18,6 +18,7 @@ then
 	sleep 5
 fi
 
+RTC_PWD=""
 RTC_REPO=""
 RTC_GRP=""
 RTC_HOST=""
