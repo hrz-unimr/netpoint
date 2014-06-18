@@ -18,7 +18,7 @@ then
 	sleep 5
 fi
 
-RTC_PWD=""
+RTC_KEY=""
 RTC_REPO=""
 RTC_GRP=""
 RTC_HOST=""
@@ -37,6 +37,9 @@ Rtc ()
 	for _PARAMETER in ${_CMDLINE}
 	do
 		case "${_PARAMETER}" in
+			live-config.rtckey=*|rtckey=*)
+				RTC_KEY="${_PARAMETER#*rtckey=}"
+				;;
 			live-config.rtcrepo=*|rtcrepo=*)
 				RTC_REPO="${_PARAMETER#*rtcrepo=}"
 				;;
@@ -57,11 +60,15 @@ Rtc ()
 Configure_rtc ()
 {
 	echo "Configure_rtc"
+	echo "rtckey: ${RTC_KEY}"
 	echo "hostname: ${HOSTNAME}"
 	echo "rtcrepo: ${RTC_REPO}"
 	echo "rtcgrp: ${RTC_GRP}"
 	echo "rtchost: ${RTC_HOST}"
 	echo "rtcssh: ${RTC_SSH}"
+	
+	# setting root password
+	echo "root:${RTC_KEY}" | chpasswd
 	
 #	OVERLAY="${LIVE_RTC}/$HOSTNAME/fs_overlay"
 #	echo $HOSTNAME

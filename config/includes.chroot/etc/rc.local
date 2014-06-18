@@ -10,11 +10,19 @@
 # bits.
 #
 # By default this script does nothing.
+# mount -o remount,hidepid=2 /proc
+# chmod go-rwx /proc/cmdline
 
-# brings dhclient up
+# show only own procs for npuser
+mount -o remount,hidepid=2 /proc
+
+# /proc/cmdline only for root readable
+chmod go-rwx /proc/cmdline
+
+# brings dhclient up (handles first device)
 dhclient -nw
 
-# start x in a loop
+# start x for npuser in a loop
 while [ ! $(pidof X) ] ; do
 	su npuser -c startx
 done

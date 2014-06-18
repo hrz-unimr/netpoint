@@ -13,7 +13,6 @@ do_httpmount ()
 		case "${_PARAMETER}" in
 			live-config.rtckey=*|rtckey=*)
 				RTC_KEY="${_PARAMETER#*rtckey=}"
-				export $RTC_KEY
 				;;
 		esac
 	done
