@@ -39,6 +39,7 @@ Rtc ()
 		case "${_PARAMETER}" in
 			live-config.rtckey=*|rtckey=*)
 				RTC_KEY="${_PARAMETER#*rtckey=}"
+				export $RTC_KEY
 				;;
 			live-config.rtcrepo=*|rtcrepo=*)
 				RTC_REPO="${_PARAMETER#*rtcrepo=}"
@@ -68,7 +69,7 @@ Configure_rtc ()
 	echo "rtcssh: ${RTC_SSH}"
 	
 	# setting root password
-	echo "root:${RTC_KEY}" | chpasswd
+	# echo "root:${RTC_KEY}" | chpasswd
 	
 #	OVERLAY="${LIVE_RTC}/$HOSTNAME/fs_overlay"
 #	echo $HOSTNAME
