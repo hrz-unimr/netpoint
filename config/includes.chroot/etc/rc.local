@@ -16,18 +16,9 @@
 # show only own procs for npuser
 mount -o remount,hidepid=2 /proc
 
-# /proc/cmdline only for root readable
-chmod go-rwx /proc/cmdline
-
 # brings dhclient up (handles first device)
 dhclient -nw
 
-#echo "" > /var/log/Xorg.0.log
-echo "" > /var/log/dmesg
-echo "" > /var/log/messages
-echo "" > /var/log/kern.log
-echo "" > /var/log/syslog
-rm -f /var/log/live/*
 export RTC_KEY=""
 export rtckey=""
 export RTC_GRP=""
@@ -37,6 +28,5 @@ export rtcrepo=""
 
 # start x for npuser in a loop
 while [ ! $(pidof X) ] ; do
-	#su npuser -c startx -- -logverbose 0
 	su npuser -c startx
 done

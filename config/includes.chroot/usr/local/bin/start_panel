@@ -1,5 +1,18 @@
 #!/bin/bash
-
+_CMDLINE="$(cat /proc/cmdline)"
+XTERM=""
+for _PARAMETER in ${_CMDLINE}
+do
+	case "${_PARAMETER}" in
+		live-config.xterm|xterm)
+			XTERM="1"
+			;;
+	esac
+done
+if [ ! -z "$XTERM" ]
+then
+	echo "launcher_item_app = /usr/share/applications/xterm.desktop" >> ~/.config/tint2/tint2rc
+fi
 while [ ! $(pidof tint2) ] ; do
 	tint2
 done

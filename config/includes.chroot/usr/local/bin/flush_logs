@@ -1,0 +1,24 @@
+#!/bin/bash
+
+_CMDLINE="$(cat /proc/cmdline)"
+DEBUG=""
+for _PARAMETER in ${_CMDLINE}
+do
+	case "${_PARAMETER}" in
+		live-config.debug|debug)
+			DEBUG="1"
+			;;
+	esac
+done
+if [ -z "$DEBUG" ]
+then
+	echo "flush logs...."
+	echo "" > /var/log/Xorg.0.log
+	echo "" > /var/log/dmesg
+	echo "" > /var/log/messages
+	echo "" > /var/log/kern.log
+	echo "" > /var/log/syslog
+	rm -f /var/log/live/*
+fi
+# /proc/cmdline only for root readable
+chmod go-rwx /proc/cmdline
