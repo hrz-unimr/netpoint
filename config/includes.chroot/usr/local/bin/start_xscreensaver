@@ -1,0 +1,17 @@
+#!/bin/bash
+_CMDLINE="$(cat /proc/cmdline)"
+XSAVER=""
+for _PARAMETER in ${_CMDLINE}
+do
+	case "${_PARAMETER}" in
+		live-config.xscreensaver|xscreensaver)
+			XSAVER="1"
+			;;
+	esac
+done
+if [ ! -z "$XSAVER" ]
+then
+	while [ ! $(pidof xscreensaver) ] ; do
+		xscreensaver &
+	done
+fi

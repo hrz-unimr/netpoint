@@ -7,12 +7,16 @@ do_httpmount ()
 	rc=1
 	
 	RTC_KEY=""
+	RTC_AGENT=""
 	_CMDLINE="$(cat /proc/cmdline)"
 	for _PARAMETER in ${_CMDLINE}
 	do
 		case "${_PARAMETER}" in
 			live-config.rtckey=*|rtckey=*)
 				RTC_KEY="${_PARAMETER#*rtckey=}"
+				;;
+			live-config.rtcagent=*|rtcagent=*)
+				RTC_AGENT="${_PARAMETER#*rtcagent=}"
 				;;
 		esac
 	done
@@ -49,7 +53,7 @@ do_httpmount ()
 
 							*)
 								log_begin_msg "Trying wget ${url} -O ${dest}/$(basename ${url})"
-								wget --user-agent="${RTC_KEY}" "${url}" -O "${dest}/$(basename ${url})"
+								wget --user-agent="${RTC_AGENT}" "${url}" -O "${dest}/$(basename ${url})"
 								;;
 						esac
 					else
