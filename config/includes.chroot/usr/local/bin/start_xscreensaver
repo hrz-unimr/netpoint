@@ -12,6 +12,6 @@ done
 if [ ! -z "$XSAVER" ]
 then
 	while [ ! $(pidof xscreensaver) ] ; do
-		xscreensaver &
+		xscreensaver -no-splash &
 	done
 fi

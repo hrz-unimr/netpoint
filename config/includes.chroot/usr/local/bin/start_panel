@@ -1,18 +1,36 @@
 #!/bin/bash
 _CMDLINE="$(cat /proc/cmdline)"
+XEXIT=""
 XTERM=""
+XPANEL=""
 for _PARAMETER in ${_CMDLINE}
 do
 	case "${_PARAMETER}" in
 		live-config.xterm|xterm)
 			XTERM="1"
 			;;
+		live-config.xexit|xexit)
+			XEXIT="1"
+			;;
+		live-config.xpanel|xpanel)
+			XPANEL="1"
+			;;
 	esac
 done
+
+if [ ! -z "$XEXIT" ]
+then
+	echo "launcher_item_app = /usr/share/applications/exit.desktop" >> ~/.config/tint2/tint2rc
+fi
+
 if [ ! -z "$XTERM" ]
 then
 	echo "launcher_item_app = /usr/share/applications/xterm.desktop" >> ~/.config/tint2/tint2rc
 fi
-while [ ! $(pidof tint2) ] ; do
-	tint2
-done
+
+if [ ! -z "$XPANEL" ]
+then
+	while [ ! $(pidof tint2) ] ; do
+		tint2
+	done
+fi

@@ -121,4 +121,4 @@ battery_background_id = 0
 launcher_padding = 5 0 10
 launcher_background_id = 9
 launcher_icon_size = 24
-launcher_item_app = /usr/share/applications/exit.desktop
+
