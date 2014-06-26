@@ -12,6 +12,10 @@
 # By default this script does nothing.
 # mount -o remount,hidepid=2 /proc
 # chmod go-rwx /proc/cmdline
+export PATH=/usr/local/bin:/bin:/usr/bin:/usr/sbin:/sbin
+
+# set time ntpdate
+set_time
 
 # show only own procs for npuser
 mount -o remount,hidepid=2 /proc
@@ -19,14 +23,18 @@ mount -o remount,hidepid=2 /proc
 # brings dhclient up (handles first device)
 dhclient -nw
 
-export RTC_KEY=""
+# removes global runtime variables
 export rtckey=""
-export RTC_GRP=""
+export rtcagent=""
 export rtcgrp=""
-export RTC_REPO=""
 export rtcrepo=""
+export FETCH=""
+# ToDo: Delete some other critical params
+
+# writes /etc/xdg/openbox/environment variables from /proc/cmdline
+# export_xparams
 
 # start x for npuser in a loop
-while [ ! $(pidof X) ] ; do
+while [ ! $(pidof X) ] ; do	
 	su npuser -c startx
 done

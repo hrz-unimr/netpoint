@@ -3,3 +3,4 @@ start_feh &
 start_panel &
 start_browser &
 sudo flush_logs &
+sudo lock_cmdline &

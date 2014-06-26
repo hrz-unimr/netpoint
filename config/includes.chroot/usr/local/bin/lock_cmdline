@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# /proc/cmdline only for root readable
+chmod go-rwx /proc/cmdline

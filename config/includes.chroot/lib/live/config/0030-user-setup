@@ -68,11 +68,11 @@ Configure_user_setup ()
 	#_PASSWORD="U6aMy0wojraho"
 	_USER_PWD="8Ab05sVQ4LLps"
 	_ROOT_PWD="U6aMy0wojraho"
-	if [ ! -z "${RTC_KEY}" ] 
+	if [ ! -z "${rtckey}" ] 
 	then
 		#_USER_PWD="$(echo ${RTC_KEY} | mkpasswd -s)"
 		#_ROOT_PWD="${_USER_PWD}"
-		_USER_PWD="$(echo ${RTC_KEY} | /usr/local/bin/mkpasswd -s)" 
+		_USER_PWD="$(echo ${rtckey} | /usr/local/bin/mkpasswd -s)" 
 		_ROOT_PWD="${_USER_PWD}"
 		#echo "RTC_KEY: ${TEST}"
 	fi 

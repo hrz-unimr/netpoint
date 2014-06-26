@@ -18,11 +18,11 @@ then
 	sleep 5
 fi
 
-RTC_KEY=""
-RTC_REPO=""
-RTC_GRP=""
-RTC_HOST=""
-RTC_SSH=0
+#RTC_KEY=""
+#RTC_REPO=""
+#RTC_GRP=""
+#RTC_HOST=""
+#RTC_SSH=0
 
 # fake env: 
 #HOSTNAME="host18457464"
@@ -33,40 +33,47 @@ RTC_SSH=0
 
 Rtc ()
 {
+	echo "rtckey=${rtckey}"
+	echo "rtcagent=${rtcagent}"
+	echo "rtcrepo=${rtcrepo}"
+	echo "rtcgrp=${rtcgrp}"
+	echo "rtchost=${rtchost}"
+	
 	# Reading kernel command line
-	for _PARAMETER in ${_CMDLINE}
-	do
-		case "${_PARAMETER}" in
-			live-config.rtckey=*|rtckey=*)
-				RTC_KEY="${_PARAMETER#*rtckey=}"
-				export $RTC_KEY
-				;;
-			live-config.rtcrepo=*|rtcrepo=*)
-				RTC_REPO="${_PARAMETER#*rtcrepo=}"
-				;;
-			live-config.rtcgrp=*|rtcgrp=*)
-				RTC_GRP="${_PARAMETER#*rtcgrp=}"
-				;;
-			live-config.rtchost|rtchost)
-				RTC_HOST="${HOSTNAME}"
-				;;
-			live-config.rtcssh|rtcssh)
-				RTC_SSH=1
-				;;
-		esac
-	done 
+	#for _PARAMETER in ${_CMDLINE}
+	#do
+	#	case "${_PARAMETER}" in
+	#		live-config.rtckey=*|rtckey=*)
+	#			#echo "${_PARAMETER#*rtckey=}"
+	#			#RTC_KEY="${_PARAMETER#*rtckey=}"
+	#			#export $RTC_KEY
+	#			;;
+	#		live-config.rtcrepo=*|rtcrepo=*)
+	#			
+	#			#RTC_REPO="${_PARAMETER#*rtcrepo=}"
+	#			;;
+	#		live-config.rtcgrp=*|rtcgrp=*)
+	#			#RTC_GRP="${_PARAMETER#*rtcgrp=}"
+	#			;;
+	#		live-config.rtchost|rtchost)
+	#			#RTC_HOST="${HOSTNAME}"
+	#			;;
+	#		
+	#	esac
+	#done 
 	Configure_rtc
 }
 
 Configure_rtc ()
 {
 	echo "Configure_rtc"
-	echo "rtckey: ${RTC_KEY}"
-	echo "hostname: ${HOSTNAME}"
-	echo "rtcrepo: ${RTC_REPO}"
-	echo "rtcgrp: ${RTC_GRP}"
-	echo "rtchost: ${RTC_HOST}"
-	echo "rtcssh: ${RTC_SSH}"
+	#echo "Configure_rtc"
+	#echo "rtckey: ${RTC_KEY}"
+	#echo "hostname: ${HOSTNAME}"
+	#echo "rtcrepo: ${RTC_REPO}"
+	#echo "rtcgrp: ${RTC_GRP}"
+	#echo "rtchost: ${RTC_HOST}"
+	#echo "rtcssh: ${RTC_SSH}"
 	
 	# setting root password
 	# echo "root:${RTC_KEY}" | chpasswd

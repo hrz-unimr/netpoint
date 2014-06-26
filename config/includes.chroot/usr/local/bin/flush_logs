@@ -20,5 +20,3 @@ then
 	echo "" > /var/log/syslog
 	rm -f /var/log/live/*
 fi
-# /proc/cmdline only for root readable
-chmod go-rwx /proc/cmdline
