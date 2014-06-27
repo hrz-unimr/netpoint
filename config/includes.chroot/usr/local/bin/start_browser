@@ -18,6 +18,11 @@ if [ "${xbrowser}" == "seb" ]
 then
 	echo "try starting seb..."
 	while [ ! $(pidof xulrunner) ] ; do
-		iceweasel -app /opt/seb/apps/seb.ini "${xbrowseropts}"
+		if [ -z "${OPTS}" ]
+		then 
+			iceweasel -app /opt/seb/apps/seb.ini
+		else
+			iceweasel -app /opt/seb/apps/seb.ini "${OPTS}"
+		fi
 	done
 fi

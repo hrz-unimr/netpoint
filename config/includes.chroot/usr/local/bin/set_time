@@ -1,0 +1,17 @@
+#!/bin/sh
+
+###########################################################
+#
+# set time
+# $Id: set_time 42 2009-06-02 08:54:58Z gebhardt $
+#
+###########################################################
+
+export PATH=/usr/local/bin:/bin:/usr/bin:/usr/sbin:/sbin
+
+echo "Set time by ntpdate"
+
+rm -f /etc/localtime
+ln -s /usr/share/zoneinfo/Europe/Berlin /etc/localtime
+echo "Europe/Berlin" > /etc/timezone
+ntpdate ntp-1.uni-marburg.de || ntpdate ntp-2.uni-marburg.de || ntpdate ntp-3.uni-marburg.de 
