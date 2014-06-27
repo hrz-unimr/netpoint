@@ -1,5 +1,5 @@
 #!/bin/bash
-if [ "${xscreensaver}" == "1"]
+if [ "${xscreensaver}" == "1" ]
 then
 	while [ ! $(pidof xscreensaver) ] ; do
 		xscreensaver -no-splash &

@@ -1,8 +1,23 @@
 #!/bin/bash
 
+OPTS="${xbrowseropts}"
+
 if [ "${xbrowser}" == "firefox" ]
 then
 	while [ ! $(pidof iceweasel) ] ; do
-		iceweasel "${xbrowseropts}"
+		if [ -z "${OPTS}" ]
+		then 
+			iceweasel
+		else
+			iceweasel "${OPTS}"
+		fi
+	done
+fi
+
+if [ "${xbrowser}" == "seb" ]
+then
+	echo "try starting seb..."
+	while [ ! $(pidof xulrunner) ] ; do
+		iceweasel -app /opt/seb/apps/seb.ini "${xbrowseropts}"
 	done
 fi
