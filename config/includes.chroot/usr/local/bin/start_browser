@@ -1,16 +1,16 @@
 #!/bin/bash
 
-OPTS="${xbrowseropts}"
+OPTS=""
+if [ ! -z "${xbrowseropts}" ]
+then
+	# replace options "," with " ". Don't delete trailing " " from OPTS=" $...."!
+	OPTS=" ${xbrowseropts//,/ }"
+fi
 
 if [ "${xbrowser}" == "firefox" ]
 then
 	while [ ! $(pidof iceweasel) ] ; do
-		if [ -z "${OPTS}" ]
-		then 
-			iceweasel
-		else
-			iceweasel "${OPTS}"
-		fi
+		`iceweasel${OPTS}`
 	done
 fi
 
@@ -18,11 +18,6 @@ if [ "${xbrowser}" == "seb" ]
 then
 	echo "try starting seb..."
 	while [ ! $(pidof xulrunner) ] ; do
-		if [ -z "${OPTS}" ]
-		then 
-			iceweasel -app /opt/seb/apps/seb.ini
-		else
-			iceweasel -app /opt/seb/apps/seb.ini "${OPTS}"
-		fi
+		`iceweasel -app /opt/seb/apps/seb.ini${OPTS}`
 	done
 fi

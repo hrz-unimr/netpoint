@@ -25,7 +25,7 @@ border_color = #FFFFFF 68
 
 # Panel
 panel_monitor = all
-panel_position = bottom center horizontal
+panel_position = top center horizontal
 panel_size = 100% 30
 panel_margin = 0 0
 panel_padding = 7 0 7
@@ -121,4 +121,3 @@ battery_background_id = 0
 launcher_padding = 5 0 10
 launcher_background_id = 9
 launcher_icon_size = 24
-
