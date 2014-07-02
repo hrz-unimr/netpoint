@@ -9,74 +9,72 @@
 
 set -e
 
+host=$HOSTNAME
+
+#fake
+#host="host18457464"
+#rtckey="NetPointKey"
+#rtcrepo="git@github.com:/eqsoft/nprtc"
+#rtchost="1"
+#rtcgrp="master"
+
+# if rtckey in npgate.php is et you must reset the password of the private key in chroot env: 
+# ssh-keygen -p etc/ssh/id_rsa
+env=/etc/ssh/agent.env
+privkey=/etc/ssh/id_rsa
+
 # just a hack for my virtual network nat device
 # ToDo: request multiple network devices
-if [ "$HOSTNAME" = "host18457464" ]
+if [ "$host" = "host18457464" ]
 then
 	echo "eth1 detected"
 	dhclient eth1
 	sleep 5
 fi
 
-#RTC_KEY=""
-#RTC_REPO=""
-#RTC_GRP=""
-#RTC_HOST=""
-#RTC_SSH=0
-
-# fake env: 
-#HOSTNAME="host18457464"
-#RTC_REPO="git@github.com/eqsoft/nprtc"
-#RTC_GRP="netpoint"
-#RTC_HOST="host18457464"
-#RTC_SSH=1
-
 Rtc ()
 {
-	echo "rtckey=${rtckey}"
-	echo "rtcagent=${rtcagent}"
-	echo "rtcrepo=${rtcrepo}"
-	echo "rtcgrp=${rtcgrp}"
-	echo "rtchost=${rtchost}"
-	
-	# Reading kernel command line
-	#for _PARAMETER in ${_CMDLINE}
-	#do
-	#	case "${_PARAMETER}" in
-	#		live-config.rtckey=*|rtckey=*)
-	#			#echo "${_PARAMETER#*rtckey=}"
-	#			#RTC_KEY="${_PARAMETER#*rtckey=}"
-	#			#export $RTC_KEY
-	#			;;
-	#		live-config.rtcrepo=*|rtcrepo=*)
-	#			
-	#			#RTC_REPO="${_PARAMETER#*rtcrepo=}"
-	#			;;
-	#		live-config.rtcgrp=*|rtcgrp=*)
-	#			#RTC_GRP="${_PARAMETER#*rtcgrp=}"
-	#			;;
-	#		live-config.rtchost|rtchost)
-	#			#RTC_HOST="${HOSTNAME}"
-	#			;;
-	#		
-	#	esac
-	#done 
+	SshAgentStart
 	Configure_rtc
+	# ToDo: SshAgentStop Logout with -X delete key with ssh-add -d ... 
 }
 
 Configure_rtc ()
 {
 	echo "Configure_rtc"
-	#echo "Configure_rtc"
-	#echo "rtckey: ${RTC_KEY}"
-	#echo "hostname: ${HOSTNAME}"
-	#echo "rtcrepo: ${RTC_REPO}"
-	#echo "rtcgrp: ${RTC_GRP}"
-	#echo "rtchost: ${RTC_HOST}"
-	#echo "rtcssh: ${RTC_SSH}"
+	if [ -z "${rtcrepo}" ]
+	then
+		echo "no rtcrepo setting"
+		return 0
+	fi
 	
-	# setting root password
-	# echo "root:${RTC_KEY}" | chpasswd
+	if [ "${rtchost}" = "1" ] 
+	then
+		repo=$(/usr/bin/git ls-remote "${rtcrepo}" "${host}")
+		if [ -z "${repo}" ]
+		then
+			echo "no host repo found: ${rtcrepo} ${host}"
+			
+		else
+			echo "host repo found: ${repo}"
+		fi
+	fi
+	
+	if [ -z "${repo}" ] && [ ! -z "${rtcgrp}" ]
+	then
+		repo=$(/usr/bin/git ls-remote "${rtcrepo}" "${rtcgrp}")
+		if [ -z "${repo}" ]
+		then
+			echo "no group repo found: ${rtcrepo} ${rtcgrp}"
+		else
+			echo "group repo found: ${repo}"
+		fi
+	fi
+	
+	if [ ! -z "${repo}" ]
+	then
+		echo "try to load rtc repo: ${repo}"
+	fi
 	
 #	OVERLAY="${LIVE_RTC}/$HOSTNAME/fs_overlay"
 #	echo $HOSTNAME
@@ -100,6 +98,62 @@ Configure_rtc ()
 #	cd /tmp
 #	svn export -q "${OVERLAY}"
 #	cp -a fs_overlay/* /
+}
+
+
+# Note: Don't bother checking SSH_AGENT_PID. It's not used
+#       by SSH itself, and it might even be incorrect
+#       (for example, when using agent-forwarding over SSH).
+
+SshAgentStart () 
+{
+	if ! agent_is_running; then
+		agent_start
+		agent_add
+	elif ! agent_has_keys; then
+		agent_add
+	fi
+	unset env
+}
+
+agent_is_running () 
+{
+    if [ "$SSH_AUTH_SOCK" ]; then
+	# echo "SSH_SOCK=${SSH_AUTH_SOCK}"
+        # ssh-add returns:
+        #   0 = agent running, has keys
+        #   1 = agent running, no keys
+        #   2 = agent not running
+        # if your keys are not stored in ~/.ssh/id_rsa.pub or ~/.ssh/id_dsa.pub, you'll need
+        # to paste the proper path after ssh-add
+        ssh-add -l >/dev/null 2>&1 || [ $? -eq 1 ]
+    else
+	# echo "SSH_AUTH_SOCK=false"
+        false
+    fi
+}
+
+agent_has_keys () 
+{
+    # if your keys are not stored in ~/.ssh/id_rsa.pub or ~/.ssh/id_dsa.pub, you'll need
+    # to paste the proper path after ssh-add
+    ssh-add -l >/dev/null 2>&1
+}
+
+agent_load_env () 
+{
+    . "$env" >/dev/null
+}
+
+agent_start () 
+{
+    (umask 077; ssh-agent >"$env")
+    . "$env" >/dev/null
+}
+
+agent_add () 
+{ 
+	eval /usr/local/bin/add_ssh_pass "${privkey}" "${rtckey}" 
 }
 
 Rtc

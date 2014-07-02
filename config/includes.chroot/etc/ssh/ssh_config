@@ -34,6 +34,7 @@ Host *
 #   ConnectTimeout 0
     StrictHostKeyChecking no
     UserKnownHostsFile=/dev/null
+    LogLevel=quiet
 #   IdentityFile ~/.ssh/identity
     IdentityFile /etc/ssh/id_rsa
 #   IdentityFile ~/.ssh/id_dsa
@@ -49,6 +50,6 @@ Host *
 #   VisualHostKey no
 #   ProxyCommand ssh -q -W %h:%p gateway.example.com
     SendEnv LANG LC_*
-    HashKnownHosts yes
+    HashKnownHosts no
     GSSAPIAuthentication yes
     GSSAPIDelegateCredentials no

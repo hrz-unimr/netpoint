@@ -1,0 +1,22 @@
+#!/bin/bash
+
+if [ $# -ne 2 ] ; then
+  echo "Usage: ssh-add-pass keyfile passphrase"
+  exit 1
+fi
+
+# expects ssh-agent env (see lib/live/config/0015-rtc)
+#eval $(ssh-agent)
+
+# from file
+# pass=$(cat $2) 
+
+# from commanline 
+pass="$2"
+
+/usr/bin/expect << EOF
+  spawn ssh-add $1
+  expect "Enter passphrase"
+  send "$pass\r"
+  expect eof
+EOF
