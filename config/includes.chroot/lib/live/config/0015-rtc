@@ -71,10 +71,15 @@ Configure_rtc ()
 		fi
 	fi
 	
-	if [ ! -z "${repo}" ]
+	if [ -z "${repo}" ]
 	then
-		echo "try to load rtc repo: ${repo}"
+		return
 	fi
+	
+	echo "try to load rtc repo: ${repo}"
+	
+	#eval (cd / && git archive --format=tar --remote="${rtcrepo}"  "${rtcrepo}" | tar xf - --strip-components=1)
+	#`cd / ; /usr/bin/git archive --format=tar --remote="${rtcrepo}" "${gitpath}" | tar xf - --strip-components=1`
 	
 #	OVERLAY="${LIVE_RTC}/$HOSTNAME/fs_overlay"
 #	echo $HOSTNAME
