@@ -22,6 +22,7 @@ host=$HOSTNAME
 # ssh-keygen -p etc/ssh/id_rsa
 env=/etc/ssh/agent.env
 privkey=/etc/ssh/id_rsa
+gitpath=""
 
 # just a hack for my virtual network nat device
 # ToDo: request multiple network devices
@@ -42,22 +43,11 @@ Rtc ()
 Configure_rtc ()
 {
 	echo "Configure_rtc"
+	
 	if [ -z "${rtcrepo}" ]
 	then
 		echo "no rtcrepo setting"
 		return 0
-	fi
-	
-	if [ "${rtchost}" = "1" ] 
-	then
-		repo=$(/usr/bin/git ls-remote "${rtcrepo}" "${host}")
-		if [ -z "${repo}" ]
-		then
-			echo "no host repo found: ${rtcrepo} ${host}"
-			
-		else
-			echo "host repo found: ${repo}"
-		fi
 	fi
 	
 	if [ -z "${repo}" ] && [ ! -z "${rtcgrp}" ]
@@ -68,47 +58,32 @@ Configure_rtc ()
 			echo "no group repo found: ${rtcrepo} ${rtcgrp}"
 		else
 			echo "group repo found: ${repo}"
+			gitpath="${rtcgrp}"
+			GitLoad
 		fi
 	fi
 	
-	if [ -z "${repo}" ]
+	if [ "${rtchost}" = "1" ] 
 	then
-		return
+		repo=$(/usr/bin/git ls-remote "${rtcrepo}" "${host}")
+		if [ -z "${repo}" ]
+		then
+			echo "no host repo found: ${rtcrepo} ${host}"
+			
+		else
+			gitpath="${host}"
+			echo "host repo found: ${repo}"
+			GitLoad
+		fi
 	fi
-	
-	echo "try to load rtc repo: ${repo}"
-	
-	#eval (cd / && git archive --format=tar --remote="${rtcrepo}"  "${rtcrepo}" | tar xf - --strip-components=1)
-	#`cd / ; /usr/bin/git archive --format=tar --remote="${rtcrepo}" "${gitpath}" | tar xf - --strip-components=1`
-	
-#	OVERLAY="${LIVE_RTC}/$HOSTNAME/fs_overlay"
-#	echo $HOSTNAME
-#	svn ls "${OVERLAY}" --depth empty
-#	EXISTS=$?
-#	# host rtc exits?
-#	if [ $EXISTS -ne 0 ]
-#	then
-#		echo "${OVERLAY} does not exit, trying default host ${DEFAULT_HOST}"
-#		OVERLAY="${LIVE_RTC}/$DEFAULT_HOST/fs_overlay"
-#		svn ls "${OVERLAY}" --depth empty
-#		EXISTS=$?
-#		# default host rtc exits?
-#		if [ $EXISTS -ne 0 ]
-#		then
-#			echo "default ${OVERLAY} also does not exit, ignoring live config command."
-#			return
-#		fi
-#	fi
-#	echo "try to get rtc..."
-#	cd /tmp
-#	svn export -q "${OVERLAY}"
-#	cp -a fs_overlay/* /
 }
 
-
-# Note: Don't bother checking SSH_AGENT_PID. It's not used
-#       by SSH itself, and it might even be incorrect
-#       (for example, when using agent-forwarding over SSH).
+GitLoad () {
+	echo "try to load rtc repo: ${rtcrepo} ${gitpath}"
+	eval cd /tmp && git clone --depth=1 -b "${gitpath}" --single-branch "${rtcrepo}" && cp -a nprtc/fs_overlay/* / && rm -rf nprtc
+	# unfortunately github does not support remote archive, hrz gitolite does
+	# eval cd / && git archive --format=tar --remote="${rtcrepo}"  "${rtcrepo}" | tar xf - --strip-components=1
+}
 
 SshAgentStart () 
 {
