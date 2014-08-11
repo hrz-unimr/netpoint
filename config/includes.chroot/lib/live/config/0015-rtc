@@ -82,8 +82,10 @@ Configure_rtc ()
 
 GitLoad () {
 	echo "try to load rtc repo: ${rtcrepo} ${gitpath}"
-	eval cd /tmp && git clone --depth=1 -b "${gitpath}" --single-branch "${rtcrepo}" && cp -a nprtc/fs_overlay/* / && rm -rf nprtc
-	# unfortunately github does not support remote archive, hrz gitolite does
+	# extract last /entry as $repname
+	repname=`expr match ${rtcrepo} '.*\/\(.*\)'`
+	eval cd /tmp && git clone --depth=1 -b "${gitpath}" --single-branch "${rtcrepo}" && cp -a "${repname}"/fs_overlay/* / && rm -r "${repname}"
+	# unfortunately github does not support remote archive, hrz gitolite does:
 	# eval cd / && git archive --format=tar --remote="${rtcrepo}"  "${rtcrepo}" | tar xf - --strip-components=1
 }
 
