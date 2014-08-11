@@ -1,18 +1,19 @@
-#!/bin/sh -e
+#!/bin/sh
 #
 # exit_browser
 #
-# This script ...
 
-# first exit browser process loop
+# first exit all start_xxx process loops (see /etc/xdg/openbox/autostart)
 su npuser -c "pkill start_browser"
-
-# kill iceweasel and xulrunner: ToDo: process query seb xulrunner query
-su npuser -c "pkill iceweasel"
-
-# kill tint2 process loop
 su npuser -c "pkill start_panel"
+su npuser -c "pkill start_feh"
+su npuser -c "pkill start_xscreensaver"
+
+# kill processes (seb uses iceweasel too)
+su npuser -c "pkill iceweasel"
 su npuser -c "pkill tint2"
+su npuser -c "pkill feh"
+su npuser -c "pkill xscreensaver"
 
 # restore profile
 if [ -f "/home/npuser.tgz" ]
@@ -21,6 +22,8 @@ then
 	rm -rf npuser
 	tar xf npuser.tgz
 fi
-# stop X (see rc.local startx loop)
-pkill X >/dev/null 2>&1 
+sleep 2
+# pkill X >/dev/null 2>&1 
 
+# exit openbox (see rc.local startx loop)
+su npuser -c "openbox --exit"
