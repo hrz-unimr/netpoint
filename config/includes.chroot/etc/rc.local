@@ -35,6 +35,8 @@ export FETCH=""
 # export_xparams
 
 # start x for npuser in a loop
-while [ ! $(pidof X) ] ; do	
-	su npuser -c startx
+while [ ! $(pidof X) ] ; do
+	sleep 2
+	su npuser -c "startx"
+	sleep 2
 done
