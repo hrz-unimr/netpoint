@@ -35,7 +35,6 @@ fi
 
 Rtc ()
 {
-	SshAgentStart
 	Configure_rtc
 	# ToDo: SshAgentStop Logout with -X delete key with ssh-add -d ... 
 }
@@ -49,6 +48,9 @@ Configure_rtc ()
 		echo "no rtcrepo setting"
 		return 0
 	fi
+	
+	# start ssh agent only if git rtcrepo is defined
+	SshAgentStart
 	
 	if [ -z "${repo}" ] && [ ! -z "${rtcgrp}" ]
 	then
