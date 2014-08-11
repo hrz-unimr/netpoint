@@ -34,11 +34,11 @@ grabVideoFrames:    False
 chooseRandomImages: False
 imageDirectory:	
 
-mode:		one
-selected:	150
+mode:		random
+selected:	-1
 
-textMode:	url
-textLiteral:	XScreenSaver
+textMode:	literal
+textLiteral:	Netpoint
 textFile:	
 textProgram:	fortune
 textURL:	http://planet.debian.org/rss20.xml
