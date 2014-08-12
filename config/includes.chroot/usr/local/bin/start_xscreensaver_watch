@@ -1,0 +1,26 @@
+#!/bin/sh
+blank() {
+	echo "blank"
+	if [ $(pidof iceweasel) ] ; then
+		`pkill iceweasel`
+	fi
+}
+ 
+unblank() {
+    # do nothing
+    echo "unblank"
+}
+
+if [ -z "${xscreensaver}" ]
+then
+	exit
+fi
+
+if [ ! -z "${xscreensaverwatch}" ]
+then
+	xscreensaver-command -watch | while read a; do
+	    echo "$a" | grep -q '^BLANK' && blank
+	    echo "$a" | grep -q '^UNBLANK' && unblank
+	done
+fi
+

@@ -9,6 +9,9 @@ su npuser -c "pkill start_panel"
 su npuser -c "pkill start_feh"
 su npuser -c "pkill start_xscreensaver"
 
+# kill xscreensaver eventlistener for browser restart  
+su npuser -c "pkill start_xscreensaver_watch"
+
 # kill processes (seb uses iceweasel too)
 su npuser -c "pkill iceweasel"
 su npuser -c "pkill tint2"
