@@ -45,31 +45,100 @@ create image
 ```
 
 ## Documentation of config file ##
-Most of the settings can be given by kernel paramters in --bootappend-live
+Most of the netpoint settings can be given by kernel paramters in --bootappend-live
 
-##### xbrowser #####
+##### xbrowser (recommanded, otherwise no browser starts) #####
 ```bash
 xbrowser=seb|firefox
 ```
 A current iceweasel (firefox version of debian) and seb (https://github.com/eqsoft/seb) are installed on build time. 
 You can choose the base browser system to use in your webkiosk.
 
-##### xbrowseropts #####
+##### xbrowseropts (optional) #####
 examples:
 ```bash
 xbrowseropts=-url,http://ipxe.org
 ```
-
 ```bash
 xbrowseropts=-jsconole
 ```
-The given options string will be added to the browser process call ("," is replaced by " ").
-For more infos look here:
+The given option string will be added to the browser process call ("," is replaced by " ").
+For more infos:
 * firefox: https://developer.mozilla.org/en-US/docs/Mozilla/Command_Line_Options
 * seb: https://github.com/eqsoft/seb/blob/master/doc.md
    
 ##### xpanel #####
+```bash
+xpanel=0|1
+```
+Switches panel on desktop on|off 
 
+##### xexit (optional) #####
+```bash
+xexit=0|1
+```
+Switches exit icon on panel on|off 
+
+##### xterminal (optional) #####
+```bash
+xterminal=0|1
+```
+Switches terminal icon on panel on|off 
+
+##### xscreensaver (optional) #####
+```bash
+xscreensaver=0|1
+```
+Switches xscreensaver on|off
+
+##### xscreensaverwatch (optional) #####
+```bash
+xscreensaverwatch=0|1
+```
+Switches xscreensaverwatch on|off (see config/includes.chroot/usr/local/bin/start_xscreensaver_watch). 
+The script resets the browser for displaying the startpage on screensaver activation after 10 min inactivity.  
+
+##### username (mandatory!) #####
+```bash
+username=npuser
+```
+The netpoint user name.
+
+##### rtckey (mandatory!) #####
+```bash
+rtckey=RTCKEY
+```
+The RTCKEY (Runtime Config Key) is used for netpoint and root user password.
+Usable with xpanel=1 and xterminal=1, ssh login with password is not allowed.
+
+##### rtcuseragent (mandatory!) #####
+```bash
+rtcuseragent=RTCUSERAGENT
+```
+in progress...
+
+##### rtcrepo (optional) #####
+example:
+```bash
+rtcrepo=git@github.com:eqsoft/nprtc
+```
+in progress...
+
+##### rtcgrp (optional) #####
+example:
+```bash
+rtcgrp=master
+```
+in progress...
+
+##### rtchost (optional) #####
+example:
+```bash
+rtchost=0|1
+```
+in progress...
+
+ 
 ## Further Documentation ##
 * Debian-Live: http://live.debian.net/manual/stable/html/live-manual.en.html
 * Openbox: http://openbox.org/wiki/Help:Contents
