@@ -35,7 +35,7 @@ edit openbox configs (permitted keys, mouse and menu)
 ```bash
 config/includes.chroot/etc/xdg/openbox/*
 ```
-Copy config.iso or config.net to auto/config. For SEB see examples/config.seb.* 
+Copy config.iso or config.net to auto/config. See examples/config.seb.* for Safe-Exam-Browser 
 ```bash
 cp config.iso auto/config
 ```
@@ -44,13 +44,15 @@ create image
 ./build.sh
 ```
 
-## config file ##
+## documentation of config file ##
 Most of the settings can be given by kernel paramters in --bootappend-live
 
-### Browser ###
-* xbrowser=seb|firefox
+##### xbrowser #####
+```bash
+xbrowser=seb|firefox
+```
 A current iceweasel (firefox version of debian) and seb (https://github.com/eqsoft/seb) are installed on build time. 
-You can choose the base browser systems to use in your webkiosk.
+You can choose the base browser system to use in your webkiosk.
 
    
 ## Further Documentation ##
