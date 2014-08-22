@@ -31,10 +31,6 @@ edit packages
 ```bash
 config/package-lists/*.chroot
 ```
-edit openbox configs (permitted keys, mouse and menu)
-```bash
-config/includes.chroot/etc/xdg/openbox/*
-```
 Copy config.iso or config.net to auto/config. See examples/config.seb.* for Safe-Exam-Browser 
 ```bash
 cp config.iso auto/config
@@ -43,6 +39,16 @@ create image
 ```bash
 ./build.sh
 ```
+
+* deploy binaries
+```bash
+binary.hybrid.iso
+```
+or
+```bash
+binary.netboot.tar
+```
+docu in progress...
 
 ## Documentation of config file ##
 Most of the netpoint settings can be given by kernel paramters in --bootappend-live
