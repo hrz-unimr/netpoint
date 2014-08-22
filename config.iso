@@ -11,6 +11,6 @@ lb config noauto \
         --apt-recommends "false" \
         --apt-indices "false" \
         --archive-areas "main contrib non-free" \
-        --bootappend-live "console=ttyS0 loglevel=3 boot=live config hostname=sebian username=sebianuser locale=de_DE.UTF-8 keyboard-layouts=de" \
+        --bootappend-live "boot=live config console=ttyS0 loglevel=3 locale=de_DE.UTF-8 keyboard-layouts=de username=npuser rtckey=RTCKEY rtcagent=RTCUSERAGENT xpanel=1 xexit=1 xscreensaver=1 xscreensaverwatch=1 xbrowser=firefox" \
         "${@}"
 

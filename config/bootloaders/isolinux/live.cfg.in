@@ -1,6 +1,4 @@
 label live
-	menu label ^Live (@FLAVOUR@)
-	menu default
 	linux @LINUX@
 	initrd @INITRD@
 	append @APPEND_LIVE@

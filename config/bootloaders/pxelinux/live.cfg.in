@@ -1,12 +1,4 @@
-label live-@FLAVOUR@
-	menu label ^Live (@FLAVOUR@)
-	menu default
+LABEL live
 	linux @LINUX@
 	initrd @INITRD@
 	append @APPEND_LIVE@
-
-label live-@FLAVOUR@-failsafe
-	menu label ^Live (@FLAVOUR@ failsafe)
-	linux @LINUX@
-	initrd @INITRD@
-	append @APPEND_LIVE_FAILSAFE@

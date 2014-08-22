@@ -1,4 +1,12 @@
-include menu.cfg
-default vesamenu.c32
-prompt 0
-timeout 0
+include live.cfg
+DEFAULT vesamenu.c32
+PROMPT 0
+TIMEOUT 30
+NOESCAPE 1
+ALLOWOPTIONS 0
+MENU HIDDEN 1
+MENU BACKGROUND splash.png
+MENU AUTOBOOT
+ONTIMEOUT live
+ONERROR live
+
