@@ -1,0 +1,15 @@
+#!/bin/sh
+
+set -e
+
+lb config noauto \
+        --architecture "i386" \
+        --linux-flavours "686-pae" \
+        --distribution "wheezy" \
+        --binary-images "netboot" \
+        --memtest "none" \
+        --apt-recommends "false" \
+        --apt-indices "false" \
+        --archive-areas "main contrib non-free" \
+        --bootappend-live "boot=live config console=ttyS0 loglevel=3 locale=de_DE.UTF-8 keyboard-layouts=de username=npuser rtckey=RTCKEY rtcagent=RTCUSERAGENT xbrowser=seb netboot=nfs nfsroot=192.168.2.10:/srv/debian-live" \
+        "${@}"
