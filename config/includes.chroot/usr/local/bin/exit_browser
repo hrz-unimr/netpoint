@@ -4,29 +4,62 @@
 #
 
 # first exit all start_xxx process loops (see /etc/xdg/openbox/autostart)
-su npuser -c "pkill start_browser"
-su npuser -c "pkill start_panel"
-su npuser -c "pkill start_feh"
-su npuser -c "pkill start_xscreensaver"
+if [ $(pidof -x start_browser) ] 
+then
+	su $SUDO_USER -c "pkill start_browser"
+fi
+
+if [ $(pidof -x start_panel) ] 
+then
+	su $SUDO_USER -c "pkill start_panel"
+fi
+
+if [ $(pidof -x start_feh) ] 
+then
+	su $SUDO_USER -c "pkill start_feh"
+fi
+
+if [ $(pidof -x start_xscreensaver) ] 
+then
+	su $SUDO_USER -c "pkill start_xscreensaver"
+fi
 
 # kill xscreensaver eventlistener for browser restart  
-su npuser -c "pkill start_xscreensaver_watch"
+if [ $(pidof -x start_xscreensaver_watch) ] 
+then
+	su $SUDO_USER -c "pkill start_xscreensaver_watch"
+fi
 
 # kill processes (seb uses iceweasel too)
-su npuser -c "pkill iceweasel"
-su npuser -c "pkill tint2"
-su npuser -c "pkill feh"
-su npuser -c "pkill xscreensaver"
+
+if [ $(pidof -x iceweasel) ] 
+then
+	su $SUDO_USER -c "pkill iceweasel"
+fi
+
+if [ $(pidof -x tint2) ] 
+then
+	su $SUDO_USER -c "pkill tint2"
+fi
+
+if [ $(pidof -x feh) ] 
+then
+	su $SUDO_USER -c "pkill feh"
+fi
+
+if [ $(pidof -x xscreensaver) ] 
+then
+	su $SUDO_USER -c "pkill xscreensaver"
+fi
 
 # restore profile
-if [ -f "/home/npuser.tgz" ]
+if [ -f "/home/${SUDO_USER}.tgz" ]
 then 
 	cd /home
-	rm -rf npuser
-	tar xf npuser.tgz
+	rm -rf "${SUDO_USER}"
+	tar xf "${SUDO_USER}.tgz"
 fi
 sleep 2
-# pkill X >/dev/null 2>&1 
 
 # exit openbox (see rc.local startx loop)
-su npuser -c "openbox --exit"
+su $SUDO_USER -c "openbox --exit"

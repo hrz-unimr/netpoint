@@ -34,9 +34,10 @@ export FETCH=""
 # writes /etc/xdg/openbox/environment variables from /proc/cmdline
 # export_xparams
 
-# start x for npuser in a loop
+# start x for $username in a loop
+
 while [ ! $(pidof X) ] ; do
 	sleep 2
-	su npuser -c "startx"
+	su $username -c "startx"
 	sleep 2
 done
