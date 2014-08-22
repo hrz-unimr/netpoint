@@ -2,7 +2,7 @@ netpoint
 ========
 
 ## Introduction ##
-* The object of netpoint is the creation of a customizable webkiosk system based on Debian-Live and Firefox / SEB.
+* A customizable webkiosk system based on Debian-Live and Firefox / seb.
 
 ## Requirements ##
 * Debian Linux (Wheezy recommended)
@@ -67,7 +67,7 @@ For more infos:
 * firefox: https://developer.mozilla.org/en-US/docs/Mozilla/Command_Line_Options
 * seb: https://github.com/eqsoft/seb/blob/master/doc.md
    
-##### xpanel #####
+##### xpanel (optional) #####
 ```bash
 xpanel=0|1
 ```
@@ -99,12 +99,14 @@ Switches xscreensaverwatch on|off (see config/includes.chroot/usr/local/bin/star
 The script resets the browser for displaying the startpage on screensaver activation after 10 min inactivity.  
 
 ##### username (mandatory!) #####
+example ("npuser" can be changed):
 ```bash
 username=npuser
 ```
 The netpoint user name.
 
 ##### rtckey (mandatory!) #####
+example ("RTCKEY" can be changed):
 ```bash
 rtckey=RTCKEY
 ```
@@ -112,31 +114,32 @@ The RTCKEY (Runtime Config Key) is used for netpoint and root user password.
 Usable with xpanel=1 and xterminal=1, ssh login with password is not allowed.
 
 ##### rtcuseragent (mandatory!) #####
+example ("RTCUSERAGENT" can be changed):
 ```bash
 rtcuseragent=RTCUSERAGENT
 ```
-in progress...
+docu in progress...
 
 ##### rtcrepo (optional) #####
 example:
 ```bash
 rtcrepo=git@github.com:eqsoft/nprtc
 ```
-in progress...
+docu in progress...
 
 ##### rtcgrp (optional) #####
 example:
 ```bash
 rtcgrp=master
 ```
-in progress...
+docu in progress...
 
 ##### rtchost (optional) #####
 example:
 ```bash
 rtchost=0|1
 ```
-in progress...
+docu in progress...
 
  
 ## Further Documentation ##
