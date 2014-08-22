@@ -44,7 +44,7 @@ create image
 ./build.sh
 ```
 
-## documentation of config file ##
+## Documentation of config file ##
 Most of the settings can be given by kernel paramters in --bootappend-live
 
 ##### xbrowser #####
@@ -54,7 +54,22 @@ xbrowser=seb|firefox
 A current iceweasel (firefox version of debian) and seb (https://github.com/eqsoft/seb) are installed on build time. 
 You can choose the base browser system to use in your webkiosk.
 
+##### xbrowseropts #####
+examples:
+```bash
+xbrowseropts=-url,http://ipxe.org
+```
+
+```bash
+xbrowseropts=-jsconole
+```
+The given options string will be added to the browser process call ("," is replaced by " ").
+For more infos look here:
+* firefox: https://developer.mozilla.org/en-US/docs/Mozilla/Command_Line_Options
+* seb: https://github.com/eqsoft/seb/blob/master/doc.md
    
+##### xpanel #####
+
 ## Further Documentation ##
 * Debian-Live: http://live.debian.net/manual/stable/html/live-manual.en.html
 * Openbox: http://openbox.org/wiki/Help:Contents
