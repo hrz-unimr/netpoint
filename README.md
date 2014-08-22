@@ -2,7 +2,7 @@ netpoint
 ========
 
 ## Introduction ##
-* The object of netpoint is the creation of a customizable webkiosk system based on Debian-Live and Firefox.
+* The object of netpoint is the creation of a customizable webkiosk system based on Debian-Live and Firefox / SEB.
 
 ## Requirements ##
 * Debian Linux (Wheezy recommended)
@@ -35,16 +35,25 @@ edit openbox configs (permitted keys, mouse and menu)
 ```bash
 config/includes.chroot/etc/xdg/openbox/*
 ```
-edit live config (see examples config.iso, config.net)
+Copy config.iso or config.net to auto/config. For SEB see examples/config.seb.* 
 ```bash
-auto/config
+cp config.iso auto/config
 ```
 create image
 ```bash
 ./build.sh
 ```
 
+## config file ##
+Most of the settings can be given by kernel paramters in --bootappend-live
 
-## Documentation ##
+### Browser ###
+* xbrowser=seb|firefox
+A current iceweasel (firefox version of debian) and seb (https://github.com/eqsoft/seb) are installed on build time. 
+You can choose the base browser systems to use in your webkiosk.
+
+   
+## Further Documentation ##
 * Debian-Live: http://live.debian.net/manual/stable/html/live-manual.en.html
 * Openbox: http://openbox.org/wiki/Help:Contents
+* SEB: https://github.com/eqsoft/seb
