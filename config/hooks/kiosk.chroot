@@ -14,10 +14,16 @@ set -e
 
 # fetch seb repo
 
-cd /opt/seb
-wget --no-check-certificate -qO- https://github.com/eqsoft/seb/tarball/master | tar xz
-mv eqsoft-seb-*/browser/apps  /opt/seb
-rm -r eqsoft-seb-*
+if [ ! -d "/opt/seb" ] 
+then
+	mkdir -p /opt/seb
+	cd /opt/seb
+	wget --no-check-certificate -qO- https://github.com/eqsoft/seb/tarball/master | tar xz
+	mv eqsoft-seb-*/browser/apps  /opt/seb
+	rm -r eqsoft-seb-*
+fi
+
+
 
 # svn export -q https://github.com/eqsoft/seb/trunk/browser/apps
 # git clone https://github.com/eqsoft/seb sebrepo
