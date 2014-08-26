@@ -9,6 +9,7 @@ echo "found resolution: $RES"
 
 if [ ! -f "$IMAGE" ] ; then
 	echo "no image found $IMAGE use $DEFAULT_IMAGE"
+	IMAGE=$DEFAULT_IMAGE
 fi
 
 feh --bg-scale $IMAGE
