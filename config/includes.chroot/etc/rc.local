@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/sh
 #
 # rc.local
 #
@@ -14,14 +14,15 @@
 # chmod go-rwx /proc/cmdline
 export PATH=/usr/local/bin:/bin:/usr/bin:/usr/sbin:/sbin
 
+# brings dhclient up (handles first device)
+# dhclient -nw
+dhclient eth0
+
 # set time ntpdate
 set_time
 
 # show only own procs for npuser
 mount -o remount,hidepid=2 /proc
-
-# brings dhclient up (handles first device)
-dhclient -nw
 
 # removes global runtime variables
 export rtckey=""
