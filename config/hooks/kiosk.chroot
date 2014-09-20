@@ -7,7 +7,7 @@
 ## This is free software, and you are welcome to redistribute it
 ## under certain conditions; see COPYING for details.
 
-set -e
+#set -e
 
 #echo $HOSTANME > /etc/hostname
 #/etc/init.d/hostname.sh
@@ -23,7 +23,11 @@ then
 	rm -r eqsoft-seb-*
 fi
 
-
+#FLASH_UPDATE="/usr/sbin/update-flashplugin-nonfree"
+#if [ -x "$FLASH_UPDATE" ]
+#then
+#	$FLASH_UPDATE --install
+#fi
 
 # svn export -q https://github.com/eqsoft/seb/trunk/browser/apps
 # git clone https://github.com/eqsoft/seb sebrepo
