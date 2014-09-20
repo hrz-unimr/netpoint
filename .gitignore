@@ -11,3 +11,4 @@ filesystem.dir*
 authorized_keys*
 id_rsa*
 id_dsa*
+id_dss*

@@ -1,1 +1,1 @@
-sudo expect openssh-server xorg xscreensaver openbox tint2 feh locales ntpdate iptables git
+sudo openssh-server xorg xscreensaver openbox tint2 feh locales ntpdate iptables git
