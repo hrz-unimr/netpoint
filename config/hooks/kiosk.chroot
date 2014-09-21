@@ -23,11 +23,11 @@ then
 	rm -r eqsoft-seb-*
 fi
 
-#FLASH_UPDATE="/usr/sbin/update-flashplugin-nonfree"
-#if [ -x "$FLASH_UPDATE" ]
-#then
-#	$FLASH_UPDATE --install
-#fi
+FLASH_UPDATE="/usr/sbin/update-flashplugin-nonfree"
+if [ -x "$FLASH_UPDATE" ]
+then
+	$FLASH_UPDATE --install
+fi
 
 # svn export -q https://github.com/eqsoft/seb/trunk/browser/apps
 # git clone https://github.com/eqsoft/seb sebrepo
