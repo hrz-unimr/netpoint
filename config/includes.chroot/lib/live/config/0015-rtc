@@ -7,7 +7,7 @@
 ## This is free software, and you are welcome to redistribute it
 ## under certain conditions; see COPYING for details.
 
-set -e
+#set -e
 
 host=$HOSTNAME
 
@@ -21,7 +21,20 @@ host=$HOSTNAME
 # if rtckey in npgate.php is et you must reset the password of the private key in chroot env: 
 # ssh-keygen -p etc/ssh/id_rsa
 env=/etc/ssh/agent.env
-privkey=/etc/ssh/id_rsa
+privkey=""
+if [ -f "/etc/ssh/id_rsa" ]
+then
+	privkey="/etc/ssh/id_rsa"
+elif [ -f "/etc/ssh/id_dsa" ]
+then
+	privkey="/etc/ssh/id_dsa" 
+elif [ -f "/etc/ssh/id_dss" ]
+then
+	privkey="/etc/ssh/id_dss" 
+else
+	echo "no ssh privkey"
+fi
+
 gitpath=""
 
 # just a hack for my virtual network nat device
@@ -83,14 +96,14 @@ Configure_rtc ()
 GitLoad () {
 	echo "try to load rtc repo: ${rtcrepo} ${gitpath}"
 	# extract last /entry as $repname
-	repname=`expr match ${rtcrepo} '.*\/\(.*\)'`
+	#repname=`expr match ${rtcrepo} '.*\/\(.*\)'`
+	repname="nprtc"
 	eval cd /tmp && git clone --depth=1 -b "${gitpath}" --single-branch "${rtcrepo}" && cp -a "${repname}"/fs_overlay/* / && rm -r "${repname}"
 	# unfortunately github does not support remote archive, hrz gitolite does:
 	# eval cd / && git archive --format=tar --remote="${rtcrepo}"  "${rtcrepo}" | tar xf - --strip-components=1
 }
 
-SshAgentStart () 
-{
+SshAgentStart () {
 	if ! agent_is_running; then
 		agent_start
 		agent_add
@@ -100,8 +113,7 @@ SshAgentStart ()
 	unset env
 }
 
-agent_is_running () 
-{
+agent_is_running () {
     if [ "$SSH_AUTH_SOCK" ]; then
 	# echo "SSH_SOCK=${SSH_AUTH_SOCK}"
         # ssh-add returns:
@@ -117,8 +129,7 @@ agent_is_running ()
     fi
 }
 
-agent_has_keys () 
-{
+agent_has_keys () {
     # if your keys are not stored in ~/.ssh/id_rsa.pub or ~/.ssh/id_dsa.pub, you'll need
     # to paste the proper path after ssh-add
     ssh-add -l >/dev/null 2>&1
@@ -129,14 +140,12 @@ agent_load_env ()
     . "$env" >/dev/null
 }
 
-agent_start () 
-{
+agent_start () {
     (umask 077; ssh-agent >"$env")
     . "$env" >/dev/null
 }
 
-agent_add () 
-{ 
+agent_add () { 
 	eval /usr/local/bin/add_ssh_pass "${privkey}" "${rtckey}" 
 }
 
