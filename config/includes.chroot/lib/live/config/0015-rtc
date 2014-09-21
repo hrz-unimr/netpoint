@@ -22,19 +22,6 @@ host=$HOSTNAME
 # ssh-keygen -p etc/ssh/id_rsa
 env=/etc/ssh/agent.env
 privkey=""
-if [ -f "/etc/ssh/id_rsa" ]
-then
-	privkey="/etc/ssh/id_rsa"
-elif [ -f "/etc/ssh/id_dsa" ]
-then
-	privkey="/etc/ssh/id_dsa" 
-elif [ -f "/etc/ssh/id_dss" ]
-then
-	privkey="/etc/ssh/id_dss" 
-else
-	echo "no ssh privkey"
-fi
-
 gitpath=""
 
 # just a hack for my virtual network nat device
@@ -62,8 +49,11 @@ Configure_rtc ()
 		return 0
 	fi
 	
-	# start ssh agent only if git rtcrepo is defined
-	SshAgentStart
+	# start ssh agent only if rtcssh is defined
+	if [ ! -z "${rtcssh}" ]
+	then
+		SshAgentStart
+	fi	
 	
 	if [ -z "${repo}" ] && [ ! -z "${rtcgrp}" ]
 	then
@@ -97,13 +87,28 @@ GitLoad () {
 	echo "try to load rtc repo: ${rtcrepo} ${gitpath}"
 	# extract last /entry as $repname
 	#repname=`expr match ${rtcrepo} '.*\/\(.*\)'`
-	repname="nprtc"
-	eval cd /tmp && git clone --depth=1 -b "${gitpath}" --single-branch "${rtcrepo}" && cp -a "${repname}"/fs_overlay/* / && rm -r "${repname}"
+	#repname="nprtc"
+	eval cd /tmp && git clone --depth=1 -b "${gitpath}" --single-branch "${rtcrepo}" && cp -a "${rtcreponame}"/fs_overlay/* / && rm -r "${rtcreponame}"
 	# unfortunately github does not support remote archive, hrz gitolite does:
 	# eval cd / && git archive --format=tar --remote="${rtcrepo}"  "${rtcrepo}" | tar xf - --strip-components=1
 }
 
 SshAgentStart () {
+	if [ -f "/etc/ssh/id_rsa" ]
+	then
+		privkey="/etc/ssh/id_rsa"
+	elif [ -f "/etc/ssh/id_dsa" ]
+	then
+		privkey="/etc/ssh/id_dsa" 
+	elif [ -f "/etc/ssh/id_dss" ]
+	then
+		privkey="/etc/ssh/id_dss" 
+	else
+		echo "no ssh privkey, can not start SshAgent"
+		return 0
+	fi
+
+	
 	if ! agent_is_running; then
 		agent_start
 		agent_add
