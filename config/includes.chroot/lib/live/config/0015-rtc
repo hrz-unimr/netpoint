@@ -21,7 +21,6 @@ host=$HOSTNAME
 # if rtckey in npgate.php is et you must reset the password of the private key in chroot env: 
 # ssh-keygen -p etc/ssh/id_rsa
 env=/etc/ssh/agent.env
-privkey=""
 gitpath=""
 
 # just a hack for my virtual network nat device
@@ -43,17 +42,17 @@ Configure_rtc ()
 {
 	echo "Configure_rtc"
 	
+	# start ssh agent only if rtcssh is defined
+	if [ ! -z "${rtcssh}" ]
+	then
+		/usr/local/bin/start_ssh
+	fi
+	
 	if [ -z "${rtcrepo}" ]
 	then
 		echo "no rtcrepo setting"
 		return 0
 	fi
-	
-	# start ssh agent only if rtcssh is defined
-	if [ ! -z "${rtcssh}" ]
-	then
-		SshAgentStart
-	fi	
 	
 	if [ -z "${repo}" ] && [ ! -z "${rtcgrp}" ]
 	then
@@ -91,67 +90,6 @@ GitLoad () {
 	eval cd /tmp && git clone --depth=1 -b "${gitpath}" --single-branch "${rtcrepo}" && cp -a "${rtcreponame}"/fs_overlay/* / && rm -r "${rtcreponame}"
 	# unfortunately github does not support remote archive, hrz gitolite does:
 	# eval cd / && git archive --format=tar --remote="${rtcrepo}"  "${rtcrepo}" | tar xf - --strip-components=1
-}
-
-SshAgentStart () {
-	if [ -f "/etc/ssh/id_rsa" ]
-	then
-		privkey="/etc/ssh/id_rsa"
-	elif [ -f "/etc/ssh/id_dsa" ]
-	then
-		privkey="/etc/ssh/id_dsa" 
-	elif [ -f "/etc/ssh/id_dss" ]
-	then
-		privkey="/etc/ssh/id_dss" 
-	else
-		echo "no ssh privkey, can not start SshAgent"
-		return 0
-	fi
-
-	
-	if ! agent_is_running; then
-		agent_start
-		agent_add
-	elif ! agent_has_keys; then
-		agent_add
-	fi
-	unset env
-}
-
-agent_is_running () {
-    if [ "$SSH_AUTH_SOCK" ]; then
-	# echo "SSH_SOCK=${SSH_AUTH_SOCK}"
-        # ssh-add returns:
-        #   0 = agent running, has keys
-        #   1 = agent running, no keys
-        #   2 = agent not running
-        # if your keys are not stored in ~/.ssh/id_rsa.pub or ~/.ssh/id_dsa.pub, you'll need
-        # to paste the proper path after ssh-add
-        ssh-add -l >/dev/null 2>&1 || [ $? -eq 1 ]
-    else
-	# echo "SSH_AUTH_SOCK=false"
-        false
-    fi
-}
-
-agent_has_keys () {
-    # if your keys are not stored in ~/.ssh/id_rsa.pub or ~/.ssh/id_dsa.pub, you'll need
-    # to paste the proper path after ssh-add
-    ssh-add -l >/dev/null 2>&1
-}
-
-agent_load_env () 
-{
-    . "$env" >/dev/null
-}
-
-agent_start () {
-    (umask 077; ssh-agent >"$env")
-    . "$env" >/dev/null
-}
-
-agent_add () { 
-	eval /usr/local/bin/add_ssh_pass "${privkey}" "${rtckey}" 
 }
 
 Rtc
