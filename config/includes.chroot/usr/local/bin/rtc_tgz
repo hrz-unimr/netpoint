@@ -1,0 +1,19 @@
+#!/bin/sh
+
+host=$HOSTNAME
+
+if [ -z "${tgzurl}" ] ; then
+	echo "tgzurl needed, aborted!"
+	return 0
+fi
+
+if [ "${tgzhost}" = "1" ] ; then
+	tgzurl="${tgzurl}/${host}.tgz"
+fi
+
+TgzLoad () {
+	echo "try to load rtc tgz file: ${tgzurl}"
+	cd /tmp && wget --no-check-certificate -qO- $tgzurl | tar xz && cp -a fs_overlay/* / && rm -r fs_overlay
+}
+
+TgzLoad

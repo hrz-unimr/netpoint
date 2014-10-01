@@ -1,0 +1,43 @@
+#!/bin/sh
+
+host=$HOSTNAME
+gitpath=""
+
+if [ -z "${giturl}" ] || [ -z "${gitreponame}" ] 
+then
+	echo "giturl or gitreponame needed, abort!"
+	return 0
+fi
+
+if [ ! -z "${gitbranch}" ] ; then
+	#repo=""
+	repo=$(/usr/bin/git ls-remote "${giturl}" "${gitbranch}")
+	if [ -z "${repo}" ]
+	then
+		echo "no git branch found: ${giturl} ${gitbranch}"
+	else
+		echo "git branch found: ${repo}"
+		gitpath="${gitbranch}"
+		GitLoad
+	fi
+fi
+
+if [ "${githost}" = "1" ] ; then
+	#repo=""
+	repo=$(/usr/bin/git ls-remote "${giturl}" "${host}")
+	if [ -z "${repo}" ] ; then
+		echo "no host repo found: ${giturl} ${host}"
+	else
+		gitpath="${host}"
+		echo "host repo found: ${repo}"
+		GitLoad
+	fi
+fi
+
+
+GitLoad () {
+	echo "try to load rtc repo: ${giturl} ${gitpath}"
+	eval cd /tmp && git clone --depth=1 -b "${gitpath}" --single-branch "${giturl}" && cp -a "${gitreponame}"/fs_overlay/* / && rm -r "${gitreponame}"
+	# unfortunately github does not support remote archive, hrz gitolite does:
+	# eval cd / && git archive --format=tar --remote="${giturl}" | tar xf - --strip-components=1
+}

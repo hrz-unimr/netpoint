@@ -9,7 +9,7 @@
 
 #set -e
 
-host=$HOSTNAME
+#host=$HOSTNAME
 
 #fake
 #host="host18457464"
@@ -21,7 +21,7 @@ host=$HOSTNAME
 # if rtckey in npgate.php is et you must reset the password of the private key in chroot env: 
 # ssh-keygen -p etc/ssh/id_rsa
 env=/etc/ssh/agent.env
-gitpath=""
+#gitpath=""
 
 # just a hack for my virtual network nat device
 # ToDo: request multiple network devices
@@ -32,64 +32,37 @@ then
 	sleep 5
 fi
 
-Rtc ()
-{
-	Configure_rtc
-	# ToDo: SshAgentStop Logout with -X delete key with ssh-add -d ... 
-}
 
-Configure_rtc ()
-{
-	echo "Configure_rtc"
+Rtc () {
+	echo "Rtc"
 	
 	# start ssh agent only if rtcssh is defined
-	if [ ! -z "${rtcssh}" ]
-	then
+	if [ ! -z "${rtcssh}" ] ; then
 		/usr/local/bin/start_ssh
 	fi
 	
-	if [ -z "${rtcrepo}" ]
-	then
+	if [ -z "${rtcrepo}" ] ; then
 		echo "no rtcrepo setting"
 		return 0
 	fi
 	
-	if [ -z "${repo}" ] && [ ! -z "${rtcgrp}" ]
-	then
-		repo=$(/usr/bin/git ls-remote "${rtcrepo}" "${rtcgrp}")
-		if [ -z "${repo}" ]
-		then
-			echo "no group repo found: ${rtcrepo} ${rtcgrp}"
-		else
-			echo "group repo found: ${repo}"
-			gitpath="${rtcgrp}"
-			GitLoad
-		fi
+	echo "rtcrepo = ${rtcrepo}"
+	
+	if [ "${rtcrepo}" = "git" ] ; then
+		/usr/local/bin/rtc_git
+		return 0
 	fi
 	
-	if [ "${rtchost}" = "1" ] 
-	then
-		repo=$(/usr/bin/git ls-remote "${rtcrepo}" "${host}")
-		if [ -z "${repo}" ]
-		then
-			echo "no host repo found: ${rtcrepo} ${host}"
-			
-		else
-			gitpath="${host}"
-			echo "host repo found: ${repo}"
-			GitLoad
-		fi
+	if [ "${rtcrepo}" = "svn" ] ; then
+		/usr/local/bin/rtc_svn
+		return 0
 	fi
-}
+	
+	if [ "${rtcrepo}" = "tgz" ] ; then
+		/usr/local/bin/rtc_tgz
+		return 0
+	fi
 
-GitLoad () {
-	echo "try to load rtc repo: ${rtcrepo} ${gitpath}"
-	# extract last /entry as $repname
-	#repname=`expr match ${rtcrepo} '.*\/\(.*\)'`
-	#repname="nprtc"
-	eval cd /tmp && git clone --depth=1 -b "${gitpath}" --single-branch "${rtcrepo}" && cp -a "${rtcreponame}"/fs_overlay/* / && rm -r "${rtcreponame}"
-	# unfortunately github does not support remote archive, hrz gitolite does:
-	# eval cd / && git archive --format=tar --remote="${rtcrepo}"  "${rtcrepo}" | tar xf - --strip-components=1
 }
 
 Rtc
