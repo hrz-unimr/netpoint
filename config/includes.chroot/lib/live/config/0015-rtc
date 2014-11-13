@@ -20,7 +20,7 @@
 
 # if rtckey in npgate.php is et you must reset the password of the private key in chroot env: 
 # ssh-keygen -p etc/ssh/id_rsa
-env=/etc/ssh/agent.env
+
 #gitpath=""
 
 # just a hack for my virtual network nat device
@@ -35,10 +35,9 @@ fi
 
 Rtc () {
 	echo "Rtc"
-	
 	# start ssh agent only if rtcssh is defined
 	if [ ! -z "${rtcssh}" ] ; then
-		/usr/local/bin/start_ssh
+		. /usr/local/bin/start_ssh
 	fi
 	
 	if [ -z "${rtcrepo}" ] ; then
@@ -49,20 +48,19 @@ Rtc () {
 	echo "rtcrepo = ${rtcrepo}"
 	
 	if [ "${rtcrepo}" = "git" ] ; then
-		/usr/local/bin/rtc_git
+		. /usr/local/bin/rtc_git
 		return 0
 	fi
 	
 	if [ "${rtcrepo}" = "svn" ] ; then
-		/usr/local/bin/rtc_svn
+		. /usr/local/bin/rtc_svn
 		return 0
 	fi
 	
 	if [ "${rtcrepo}" = "tgz" ] ; then
-		/usr/local/bin/rtc_tgz
+		. /usr/local/bin/rtc_tgz
 		return 0
 	fi
-
 }
 
 Rtc
