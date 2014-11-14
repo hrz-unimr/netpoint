@@ -600,6 +600,7 @@
     <fullscreen>no</fullscreen>
     <maximized>true</maximized>
   </application>
+  <!--
   <application class="Seb" type="normal">
     <decor>no</decor>
     <shade>no</shade>
@@ -617,6 +618,7 @@
     <fullscreen>no</fullscreen>
     <maximized>true</maximized>
   </application>  
+  -->
 </applications>
 
 </openbox_config>
