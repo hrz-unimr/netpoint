@@ -13,7 +13,7 @@ fi
 
 TgzLoad () {
 	echo "try to load rtc tgz file: ${tgzurl}"
-	cd /tmp && wget --no-check-certificate -qO- $tgzurl | tar xz && cp -a fs_overlay/* / && rm -r fs_overlay
+	cd /tmp && wget --user-agent="${rtcagent}" --no-check-certificate -qO- $tgzurl | tar xz && cp -a fs_overlay/* / && rm -r fs_overlay
 }
 
 TgzLoad
