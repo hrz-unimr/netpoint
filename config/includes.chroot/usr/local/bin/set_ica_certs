@@ -1,0 +1,6 @@
+#!/bin/sh
+
+if [ -d "/usr/share/ca-certificates/mozilla" ] && [ -d "/opt/Citrix/ICAClient/keystore/cacerts" ] ; then	
+	ln -s /usr/share/ca-certificates/mozilla/* /opt/Citrix/ICAClient/keystore/cacerts/
+	c_rehash /opt/Citrix/ICAClient/keystore/cacerts/
+fi
