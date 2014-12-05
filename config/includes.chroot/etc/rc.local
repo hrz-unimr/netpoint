@@ -21,6 +21,9 @@ dhclient eth0
 # set time ntpdate
 set_time
 
+# set ica certs
+set_ica_certs
+
 # show only own procs for npuser
 mount -o remount,hidepid=2 /proc
 
