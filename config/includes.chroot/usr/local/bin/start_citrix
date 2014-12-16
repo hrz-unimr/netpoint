@@ -1,0 +1,16 @@
+#!/bin/bash
+sb="/opt/Citrix/ICAClient/util/storebrowse"
+usr="${xcitrixusername}"
+pwd="${xcitrixpassword}"
+dn="${xcitrixdn}"
+srv="${xcitrixserver}"
+app=${xcitrixapp//_/ }
+
+#app="Uni-Marburg:E-Klausur $S1-1"
+
+if [ -x "$sb" ] && [ ! -z "$usr" ] && [ ! -z "$pwd" ] && [ ! -z "$dn" ] && [ ! -z "$srv" ] && [ ! -z "$app" ]
+then
+        $sb -a $srv
+        cl="$sb -L '$app' -U $usr -D $dn -P $pwd $srv"
+        eval $cl
+fi
