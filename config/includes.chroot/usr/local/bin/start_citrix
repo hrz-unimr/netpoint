@@ -1,10 +1,38 @@
 #!/bin/bash
+declare -g arr
+map="HOSTMAP"
+mapfile="/usr/local/bin/hostmap"
+host=$HOSTNAME
 sb="/opt/Citrix/ICAClient/util/storebrowse"
 usr="${xcitrixusername}"
 pwd="${xcitrixpassword}"
 dn="${xcitrixdn}"
 srv="${xcitrixserver}"
 app=${xcitrixapp//_/ }
+
+if [ "$usr" ==  "$map" ]
+then
+        if [ ! -r "$mapfile" ]
+        then
+                echo "no $mapfile!"
+                exit 1
+        fi
+        readarray -t lines < "$mapfile"
+        for line in "${lines[@]}"; do
+                key=${line%%=*}
+                if [ "$key" == "$HOSTNAME" ]
+                then
+                        usr=${line#*=}
+                        break
+                fi 
+        done
+        if [ "$usr" == "$map" ]
+        then
+                echo "no host entry $HOSTNAME in $mapfile"
+                exit 1
+        fi
+        echo "$usr"
+fi
 
 #app="Uni-Marburg:E-Klausur $S1-1"
 
