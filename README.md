@@ -217,8 +217,69 @@ A simple way for overlaying the root filesystem on boot time is providing a tgz 
 This can either be a full url to a tgz file or an archive with a HOSTNAME.tgz. This is not as flexible as the git repo, because the clients can only be configured with one tgz file (tgzhost=0)
 or every client gets his own host tgz file.
 The wget clients user-agent is set to the rtcagent param, so requests can be restricted to the image itself (see rtcagent)       
+
+#### citrix support ####
+An embedded citrix reciever (ica-client) can be used to establish a windows desktop or single application session via citrix virtual desktop.
+If you have a Citrix Server infrastructure and you just want to deploy personal windows desktops to your kiosk clients, you can start a seb with the autostart url of your citrix storeweb service with an interactive user login.
+After user login the embedded citrix client will start the citrix session. 
+
+At the Philipps-University Marburg iPads, PCs and Notebooks are using the citrix reciever for the same virtual windows desktop or just browser applications that are running on citrix server farm.
+Therefore we need an autologin with restricted system accounts without interactive citrix user login. 
+For this purpose you can trigger a PNAgent login with fix user and password settings:
  
+##### xcitrix  (optional)  #####
+To automatically login the kiosk clients into a citrix system account, xcitrix hast to be activated with appropriate setting params:
+
+```bash
+xcitrix=1
+xcitrixusername=USERNAME
+xcitrixpassword=PASSWORD
+xcitrixdn=DOMAINNAME
+xcitrixserver=https://CITRIXHOSTNAME/Citrix/Store/PNAgent/config.xml
+xcitrixapp=APPNAME
+```
+
+*Comment: The PNAgent login is marked depricated and maybe the support will be cancled. So we have to take care on ica-client and CitrixServer updates.
+Citrix wants to force an interactive userlogin via storeweb but i think they have to sustain an alternative way for session autologins like the PNAgent feature.*
+
+Usually you don't want an extra browser, panel or other Linux desktop components to be started:
+
+```bash
+xpanel=0
+xbrowser=0
+xterminal=0
+```
+
+Important: in any case you need username and password (rtckey) for your Linux environment  (see above)!
+
+To minimize licence costs it is possible to dynamically assign different hardare clients (hosts) to a pool of citrix accounts with a hostname mapping:
+
+```bash
+xcitrixusername=HOSTMAP
+```
+
+Insert a Hostmap file: 
+
+```bash
+/usr/local/bin/hostmap
+```
+
+with mapping entries like:
+
+```bash
+hostname1=citrixaccount1
+hostname2=citrixaccount2
+hostname3=citrixaccount3
+......
+
+```
+
+The citrix username will be replaced with the hostname entry for the citrix session login. The password is the same for all hosts (xcitrixpassword in the kernel params).
+
 ## Further Documentation ##
 * Debian-Live: http://live.debian.net/manual/stable/html/live-manual.en.html
 * Openbox: http://openbox.org/wiki/Help:Contents
-* SEB: https://github.com/eqsoft/seb
+* seb: https://github.com/eqsoft/seb
+* Linux Citrix Reciever (ica-client): http://www.citrix.com/downloads/citrix-receiver/linux/receiver-for-linux-131.html
+* Citrix ica-client 13.1 full documentation: http://www.citrix.com/content/dam/citrix/en_us/documents/downloads/citrix-receiver/linux-oem-guide-13-1.pdf
+
