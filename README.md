@@ -276,6 +276,11 @@ hostname3=citrixaccount3
 
 The citrix username will be replaced with the hostname entry for the citrix session login. The password is the same for all hosts (xcitrixpassword in the kernel params).
 
+## Known Issues ##
+* Booting will fail if the timeserver in usr/local/bin/set_time can not be found! 
+In most cases it is required to change the timeserver to internal ones because of firewall port restrictions. 
+You can also deactivate the set_time script in etc/rc.local (not recommanded)
+
 ## Further Documentation ##
 * Debian-Live: http://live.debian.net/manual/stable/html/live-manual.en.html
 * Openbox: http://openbox.org/wiki/Help:Contents
