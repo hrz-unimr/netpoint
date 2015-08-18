@@ -1,5 +1,6 @@
 {
 	"prefs"					: {
+							"dom.successive_dialog_time_limit" : 0,
 							"general.useragent.override" : "SEBKEY",
 							"network.proxy.type" : 0,
 							"network.proxy.autoconfig_url" : "",
