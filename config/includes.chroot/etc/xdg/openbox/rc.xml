@@ -50,7 +50,7 @@
 
 <theme>
   <name>Clearlooks</name>
-  <titleLayout>NC</titleLayout>
+  <titleLayout>C</titleLayout>
   <!--
       available characters are NDSLIMC, each can occur at most once.
       N: window icon
@@ -308,10 +308,11 @@
     <mousebind button="Left" action="Drag">
       <action name="Move"/>
     </mousebind>
+    <!--
     <mousebind button="Left" action="DoubleClick">
       <action name="ToggleMaximize"/>
     </mousebind>
-
+    -->
     <mousebind button="Up" action="Click">
       <action name="if">
         <shaded>no</shaded>
@@ -333,8 +334,8 @@
       </action>
     </mousebind>
   </context>
-
-  <context name="Titlebar Top Right Bottom Left TLCorner TRCorner BRCorner BLCorner">
+  <context name="Top Right Bottom Left TLCorner TRCorner BRCorner BLCorner">
+  <!--<context name="Titlebar Top Right Bottom Left TLCorner TRCorner BRCorner BLCorner">-->
     <mousebind button="Left" action="Press">
       <action name="Focus"/>
       <action name="Raise"/>
