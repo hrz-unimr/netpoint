@@ -22,7 +22,7 @@ dhclient eth0
 set_time
 
 # set ica certs
-set_ica_certs
+#set_ica_certs
 
 # set secure rbash (not tested)
 #set_rbash
