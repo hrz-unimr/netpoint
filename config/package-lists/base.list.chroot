@@ -1,1 +1,1 @@
-sudo expect openssh-server xorg dbus dbus-x11 xscreensaver openbox tint2 feh locales ntpdate iptables git subversion
+sudo expect openssh-server xorg dbus dbus-x11 xscreensaver openbox tint2 feh locales ntpdate iptables git gstreamer0.10-ffmpeg
