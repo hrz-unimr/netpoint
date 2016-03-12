@@ -1,0 +1,11 @@
+manifest components/components.manifest
+override chrome://browser/content/sync/aboutSyncTabs.xul data:text/html,Disabled
+override chrome://global/content/crashes.xhtml data:text/html,Disabled
+override chrome://global/content/plugins.html data:text/html,Disabled
+override chrome://global/content/aboutAbout.xhtml data:text/html,Disabled
+override chrome://global/content/config.xul data:text/html,Disabled
+override chrome://global/content/aboutSupport.xhtml data:text/html,Disabled
+override chrome://global/content/aboutMemory.xhtml data:text/html,Disabled
+override chrome://mozapps/content/extensions/ data:text/html,Disabled
+override chrome://mozapps/content/extensions/extensions.xul data:text/html,Disabled
+override chrome://global/content/filepicker.xul data:text/html,Disabled
