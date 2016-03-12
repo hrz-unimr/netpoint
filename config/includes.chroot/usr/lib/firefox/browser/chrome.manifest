@@ -8,4 +8,4 @@ override chrome://global/content/aboutSupport.xhtml data:text/html,Disabled
 override chrome://global/content/aboutMemory.xhtml data:text/html,Disabled
 override chrome://mozapps/content/extensions/ data:text/html,Disabled
 override chrome://mozapps/content/extensions/extensions.xul data:text/html,Disabled
-override chrome://global/content/filepicker.xul data:text/html,Disabled
+override chrome://global/content/filepicker.xul data:text/html,<script>window.close()</script>

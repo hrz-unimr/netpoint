@@ -30,11 +30,11 @@ then
 	su $SUDO_USER -c "pkill start_xscreensaver_watch"
 fi
 
-# kill processes (seb uses iceweasel too)
+# kill processes (seb uses firefox too)
 
-if [ $(pidof -x iceweasel) ] 
+if [ $(pidof -x firefox) ] 
 then
-	su $SUDO_USER -c "pkill iceweasel"
+	su $SUDO_USER -c "pkill firefox"
 fi
 
 if [ $(pidof -x tint2) ] 

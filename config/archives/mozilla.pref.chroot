@@ -1,3 +1,3 @@
-Package: iceweasel
+Package: firefox
 Pin: release a=wheezy-backports
 Pin-Priority: 700

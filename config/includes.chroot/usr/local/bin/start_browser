@@ -9,8 +9,8 @@ fi
 
 if [ "${xbrowser}" == "firefox" ]
 then
-	while [ ! $(pidof iceweasel) ] ; do
-		`iceweasel${OPTS}`
+	while [ ! $(pidof firefox) ] ; do
+		`firefox${OPTS}`
 	done
 fi
 
@@ -18,6 +18,6 @@ if [ "${xbrowser}" == "seb" ]
 then
 	echo "try starting seb..."
 	while [ ! $(pidof xulrunner) ] ; do
-		`iceweasel -app /opt/seb/apps/seb.ini${OPTS}`
+		`firefox -app /opt/seb/apps/seb.ini${OPTS}`
 	done
 fi

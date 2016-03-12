@@ -1,8 +1,8 @@
 #!/bin/sh
 blank() {
 	echo "blank"
-	if [ $(pidof iceweasel) ] ; then
-		`pkill iceweasel`
+	if [ $(pidof firefox) ] ; then
+		`pkill firefox`
 	fi
 }
  

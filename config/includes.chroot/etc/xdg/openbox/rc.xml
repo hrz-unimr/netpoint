@@ -192,6 +192,36 @@
 <keyboard>
 
   <!-- Keybindings for window switching -->
+  <!-- np: disable firefox webide -->
+  <keybind key="C-S-k">
+    <action name="Execute">
+      <command>echo "" &gt; /dev/null 2&gt;&amp;1</command>
+    </action>
+  </keybind>
+  <!-- disable firefox save dialog -->
+  <keybind key="C-s">
+    <action name="Execute">
+      <command>echo "" &gt; /dev/null 2&gt;&amp;1</command>
+    </action>
+  </keybind>
+  <!-- disable firefox open dialog -->
+  <keybind key="C-o">
+    <action name="Execute">
+      <command>echo "" &gt; /dev/null 2&gt;&amp;1</command>
+    </action>
+  </keybind>
+  <!-- disable firefox jsconsole dialog -->
+  <keybind key="C-S-j">
+    <action name="Execute">
+      <command>echo "" &gt; /dev/null 2&gt;&amp;1</command>
+    </action>
+  </keybind>
+    <!-- disable firefox quit shortcut -->
+  <keybind key="C-q">
+    <action name="Execute">
+      <command>echo "" &gt; /dev/null 2&gt;&amp;1</command>
+    </action>
+  </keybind>
   <keybind key="A-Tab">
     <action name="NextWindow">
       <finalactions>
