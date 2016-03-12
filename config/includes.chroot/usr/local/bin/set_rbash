@@ -1,0 +1,13 @@
+#!/bin/sh
+
+ln -s /bin/bash /bin/rbash
+bash -c 'echo "/bin/rbash" >> /etc/shells'
+chsh -s /bin/rbash $username
+chown root.$username /home/$username
+chmod 750 /home/$username
+cd ~$username
+for i in .bash_login .bash_profile .bash_logout .profile; do echo ". .bashrc" > $i; done
+mkdir -p /home/$username/usr/bin
+chown -R root.$username .bash* .profile /home/$username
+chmod 640 .bash* .profile
+chmod -R 750 usr/bin

@@ -24,6 +24,9 @@ set_time
 # set ica certs
 set_ica_certs
 
+# set secure rbash (not tested)
+#set_rbash
+
 # show only own procs for npuser
 mount -o remount,hidepid=2 /proc
 
